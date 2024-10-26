@@ -21,13 +21,13 @@ The main downside to this is that your IDE will use your local toolchain and dep
 
 1. Clone the repo locally
 	```bash
-	$ git clone git@github.com:helpwave/services.git
+	$ git clone git@github.com:PaulKalho/ip-event-modelling.git 
 	```
 2. Start the docker compose stack using the `$ ./up.sh` script
 3. Start your IDE of choice and start hacking!
 4. You can use the tools installed in the dev docker container by opening a shell on it:
    ```bash
-   $ ./dev.sh
+   $ ./shell.sh
    # you are now in the container
    $ psql -d user-svc
    ```
@@ -84,7 +84,6 @@ Following the steps above, you should now have a docker compose stack running an
 To see what compose actually starts, we recommend a look into the [docker-compose.yaml](https://github.com/helpwave/services/blob/main/dev/docker-compose.yaml), but here is the gist:
 
 * Dependencies (e.g., Redis, Postgres and EventStore)
-* `apisix`
 * `services`
 * `devcontainer`
 
@@ -99,23 +98,13 @@ A lot of ports will be allocated on your host system for additional debugging. H
 The microservices are tied together using [dapr](https://dapr.io/). Most services provide a grpc API, as defined by the Protobufs in `/proto`.
 [Here](https://buf.build/helpwave/services) you can find the proto's documentation.
 
-We provide one unified entrypoint for clients in form of the API-gateway [APISIX](https://apisix.apache.org/). It exposes a [grpc-web](https://github.com/grpc/grpc-web) api for http-only clients (i.e., web), but falls back to a grpc proxy for those clients that support it (i.e., mobile).
-
 #### How do I talk to a service?
-
-##### Using helpwave/web
-
-The frontend is a great way to test regressions. Hop over to [the web repo](https://github.com/helpwave/web) to find out how to set it up and point it to APISIX (HTTP).
-
-##### Using APISIX over grpc-web
-
-Using this approach, you are closest to the actual calls made by the frontends. 
-
-TODO: We are still looking for a tool that works well for this :/
 
 ##### Directly
 
 <https://github.com/fullstorydev/grpcurl>
+
+or use Postman
 
 ```bash
 grpcurl --plaintext \
@@ -129,23 +118,12 @@ grpcurl --plaintext \
 
 | Service       | Port  | Protocol                |
 |---------------|-------|-------------------------|
-| task-svc      | 3001  | gRPC                    |
-| user-svc      | 3002  | gRPC                    |
 | tasks-svc     | 3004  | gRPC                    |
-| property-svc  | 3005  | gRPC                    |
-| updates-svc   | 3006  | gRPC                    |
-| APISIX (dapr) | 3500  | http                    |
-| APISIX (dapr) | 35001 | grpc                    |
-| APISIX        | 9080  | http  (mostly grcp-web) |
-| APISIX        | 9433  | https (mostly grcp-web) |
-| APISIX        | 9090  | http  (control api)     |
-| APISIX        | 9091  | http  (prometheus)      |
 | postgres      | 5432  |                         |
 | redis         | 6379  |                         |
 | eventstore    | 2113  |                         |
 | jaeger (UI)   | 16686 | http                    |
 | jaeger (OTLP) | 4317  | grpc                    |
-| SpiceDB       | 50051 | grpc                    |
 
 ### Scripts
 
@@ -248,11 +226,6 @@ The other function of this image is to allow customization of the dev container.
 Feel free to install custom tooling (e.g. zsh, nano, ...) there.
 Please mind the instructions at the top of the Dockerfile though.
 If you think a tool might be useful to others, install it in the dev-go image instead.
-
-#### Dockerfile.apisix
-
-This image includes our APISX configuration and the daprd process. As in `Dockerfile.standalone`,
-these two processes are running side by side in the container via [hivemind](https://github.com/DarthSim/hivemind). 
 
 #### Dockerfile.service
 
@@ -419,12 +392,4 @@ if err != nil {
 
 [We disarmed the versioning for pre-production.](https://github.com/helpwave/services/issues/125).
 To arm the versioning, search for "arm-versioning" in the codebase.
-
-## Deployment
-
-[See infrastructure/README.md](infrastructure/README.md)
-
-## Archived Services
-
-- impulse-svc ([9bbe537](https://github.com/helpwave/services/commit/9bbe53744dc2650bc99b21e0894c1a9bc42f6f12))
 
