@@ -1,7 +1,6 @@
 package eventstoredb
 
 import (
-	"common"
 	"context"
 	"errors"
 	"fmt"
@@ -45,7 +44,7 @@ func (as *AggregateStore) doSave(
 	ctx context.Context,
 	a hwes.Aggregate,
 	getExpectedRevision getExpectedRevision,
-) (common.ConsistencyToken, error) {
+) error {
 	ctx, span, log := telemetry.StartSpan(ctx, "AggregateStore.doSave")
 	defer span.End()
 
@@ -53,15 +52,14 @@ func (as *AggregateStore) doSave(
 
 	// do nothing, if nothing to commit
 	if len(uncommittedEvents) == 0 {
-		return common.ConsistencyToken(a.GetVersion()), nil
+		return nil
 	}
 
 	eventsData, err := hwutil.MapWithErr(uncommittedEvents, func(event hwes.Event) (esdb.EventData, error) {
 		return event.ToEventData()
 	})
 	if err != nil {
-		return 0,
-			fmt.Errorf("AggregateStore.doSave: could not convert one uncommitted event to event data: %w", err)
+		return fmt.Errorf("AggregateStore.doSave: could not convert one uncommitted event to event data: %w", err)
 	}
 
 	var expectedRevision esdb.ExpectedRevision
@@ -74,7 +72,7 @@ func (as *AggregateStore) doSave(
 		// We resolve the expectedRevision by the passed strategy of the caller
 		expectedRevision, err = getExpectedRevision(ctx, a)
 		if err != nil {
-			return 0, fmt.Errorf("AggregateStore.doSave: could not resolve expected revision: %w", err)
+			return fmt.Errorf("AggregateStore.doSave: could not resolve expected revision: %w", err)
 		}
 	}
 
@@ -85,7 +83,7 @@ func (as *AggregateStore) doSave(
 		eventsData...,
 	)
 	if err != nil {
-		return 0, fmt.Errorf("AggregateStore.doSave: could not append event to stream: %w", err)
+		return fmt.Errorf("AggregateStore.doSave: could not append event to stream: %w", err)
 	}
 
 	log.Debug().
@@ -94,7 +92,7 @@ func (as *AggregateStore) doSave(
 		Msg("saved events to stream")
 
 	a.ClearUncommittedEvents()
-	return common.ConsistencyToken(r.NextExpectedVersion), nil
+	return nil
 }
 
 // Implements AggregateStore interface
@@ -137,7 +135,7 @@ func (as *AggregateStore) Load(ctx context.Context, aggregate hwes.Aggregate) er
 	return nil
 }
 
-func (as *AggregateStore) Save(ctx context.Context, aggregate hwes.Aggregate) (common.ConsistencyToken, error) {
+func (as *AggregateStore) Save(ctx context.Context, aggregate hwes.Aggregate) error {
 	// We can switch out the getExpectedRevision strategy for testing optimistic concurrency.
 	// It is not intended to switch the strategy in production.
 	// To ensure consistency and correctly applied events during another read,
