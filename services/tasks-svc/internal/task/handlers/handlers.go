@@ -26,8 +26,6 @@ func NewTaskHandlers(as hwes.AggregateStore) *Handlers {
 			V1: &commandsV1.TaskCommands{
 				CreateTask:      commandsV1.NewCreateTaskCommandHandler(as),
 				UpdateTask:      commandsV1.NewUpdateTaskCommandHandler(as),
-				AssignTask:      commandsV1.NewAssignTaskCommandHandler(as),
-				UnnasignTask:    commandsV1.NewUnassignTaskCommandHandler(as),
 				CreateSubtask:   commandsV1.NewCreateSubtaskCommandHandler(as),
 				UpdateSubtask:   commandsV1.NewUpdateSubtaskCommandHandler(as),
 				DeleteSubtask:   commandsV1.NewDeleteSubtaskCommandHandler(as),
@@ -36,11 +34,7 @@ func NewTaskHandlers(as hwes.AggregateStore) *Handlers {
 			},
 		},
 		Queries: &Queries{
-			V1: &queriesV1.TaskQueries{
-				GetTaskWithPatientByID:         queriesV1.NewGetTaskWithPatientByIDQueryHandler(),
-				GetTasksByPatient:              queriesV1.NewGetTasksByPatientIDQueryHandler(),
-				GetTasksWithPatientsByAssignee: queriesV1.NewGetTasksWithPatientsByAssigneeQueryHandler(),
-			},
+			V1: &queriesV1.TaskQueries{},
 		},
 	}
 }

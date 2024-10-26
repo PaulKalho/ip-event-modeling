@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"common"
 	"context"
 	"hwes"
 
@@ -10,17 +9,17 @@ import (
 	"tasks-svc/internal/task/aggregate"
 )
 
-type DeleteTaskCommandHandler func(ctx context.Context, taskID uuid.UUID) (common.ConsistencyToken, error)
+type DeleteTaskCommandHandler func(ctx context.Context, taskID uuid.UUID) error
 
 func NewDeleteTaskCommandHandler(as hwes.AggregateStore) DeleteTaskCommandHandler {
-	return func(ctx context.Context, taskID uuid.UUID) (common.ConsistencyToken, error) {
+	return func(ctx context.Context, taskID uuid.UUID) error {
 		taskAggregate, err := aggregate.LoadTaskAggregate(ctx, as, taskID)
 		if err != nil {
-			return 0, err
+			return err
 		}
 
 		if err := taskAggregate.DeleteTask(ctx); err != nil {
-			return 0, err
+			return err
 		}
 
 		return as.Save(ctx, taskAggregate)

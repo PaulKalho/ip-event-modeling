@@ -44,8 +44,6 @@ func (p *Projection) initEventListeners() {
 	p.RegisterEventListener(taskEventsV1.TaskNameUpdated, p.onTaskNameUpdated)
 	p.RegisterEventListener(taskEventsV1.TaskDescriptionUpdated, p.onTaskDescriptionUpdated)
 	p.RegisterEventListener(taskEventsV1.TaskDueAtUpdated, p.onTaskDueAtUpdated)
-	p.RegisterEventListener(taskEventsV1.TaskAssigned, p.onTaskAssigned)
-	p.RegisterEventListener(taskEventsV1.TaskUnassigned, p.onTaskUnassigned)
 	p.RegisterEventListener(taskEventsV1.TaskPublished, p.onTaskPublished)
 	p.RegisterEventListener(taskEventsV1.TaskUnpublished, p.onTaskUnpublished)
 	p.RegisterEventListener(taskEventsV1.SubtaskCreated, p.onSubtaskCreated)
@@ -188,66 +186,6 @@ func (p *Projection) onTaskDueAtUpdated(ctx context.Context, evt hwes.Event) (er
 		ID:          evt.AggregateID,
 		DueAt:       hwdb.TimeToTimestamp(payload.DueAt),
 		Consistency: int64(evt.GetVersion()), //nolint:gosec
-	})
-	if err = hwdb.Error(ctx, err); err != nil {
-		return err, hwutil.PtrTo(esdb.NackActionRetry)
-	}
-
-	return nil, nil
-}
-
-func (p *Projection) onTaskAssigned(ctx context.Context, evt hwes.Event) (error, *esdb.NackAction) {
-	log := zlog.Ctx(ctx)
-
-	var userIDStr string
-
-	switch evt.EventType {
-	case taskEventsV1.TaskAssigned:
-		var payload taskEventsV1.TaskAssignedEvent
-		if err := evt.GetJsonData(&payload); err != nil {
-			log.Error().Err(err).Msg("unmarshal failed")
-			return err, hwutil.PtrTo(esdb.NackActionPark)
-		}
-		userIDStr = payload.UserID
-	case taskEventsV1.TaskSelfAssigned:
-		var payload taskEventsV1.TaskSelfAssignedEvent
-		if err := evt.GetJsonData(&payload); err != nil {
-			log.Error().Err(err).Msg("unmarshal failed")
-			return err, hwutil.PtrTo(esdb.NackActionPark)
-		}
-		userIDStr = payload.UserID
-	}
-
-	userID, err := hwutil.ParseNullUUID(&userIDStr)
-	if err != nil {
-		return err, hwutil.PtrTo(esdb.NackActionPark)
-	}
-
-	err = p.taskRepo.UpdateTaskAssignedUser(ctx, task_repo.UpdateTaskAssignedUserParams{
-		ID:             evt.AggregateID,
-		AssignedUserID: userID,
-		Consistency:    int64(evt.GetVersion()), //nolint:gosec
-	})
-	if err = hwdb.Error(ctx, err); err != nil {
-		return err, hwutil.PtrTo(esdb.NackActionRetry)
-	}
-
-	return nil, nil
-}
-
-func (p *Projection) onTaskUnassigned(ctx context.Context, evt hwes.Event) (error, *esdb.NackAction) {
-	log := zlog.Ctx(ctx)
-
-	var payload taskEventsV1.TaskUnassignedEvent
-	if err := evt.GetJsonData(&payload); err != nil {
-		log.Error().Err(err).Msg("unmarshal failed")
-		return err, hwutil.PtrTo(esdb.NackActionPark)
-	}
-
-	err := p.taskRepo.UpdateTaskAssignedUser(ctx, task_repo.UpdateTaskAssignedUserParams{
-		ID:             evt.AggregateID,
-		AssignedUserID: uuid.NullUUID{},
-		Consistency:    int64(evt.GetVersion()), //nolint:gosec
 	})
 	if err = hwdb.Error(ctx, err); err != nil {
 		return err, hwutil.PtrTo(esdb.NackActionRetry)

@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"common"
 	"context"
 	"errors"
 	pb "gen/services/tasks_svc/v1"
@@ -18,13 +17,11 @@ type CreateTaskCommandHandler func(
 	taskID uuid.UUID,
 	name string,
 	description *string,
-	patientID uuid.UUID,
 	public *bool,
 	status *pb.TaskStatus,
 	dueAt *timestamppb.Timestamp,
-	assignedUserID uuid.NullUUID,
 	subtasks []*pb.CreateTaskRequest_SubTask,
-) (common.ConsistencyToken, error)
+) error
 
 func NewCreateTaskCommandHandler(as hwes.AggregateStore) CreateTaskCommandHandler {
 	return func(
@@ -32,22 +29,20 @@ func NewCreateTaskCommandHandler(as hwes.AggregateStore) CreateTaskCommandHandle
 		taskID uuid.UUID,
 		name string,
 		description *string,
-		patientID uuid.UUID,
 		public *bool,
 		status *pb.TaskStatus,
 		dueAt *timestamppb.Timestamp,
-		assignedUserID uuid.NullUUID,
 		subtasks []*pb.CreateTaskRequest_SubTask,
-	) (common.ConsistencyToken, error) {
+	) error {
 		a := aggregate.NewTaskAggregate(taskID)
 
 		exists, err := as.Exists(ctx, a)
 		if err != nil {
-			return 0, err
+			return err
 		}
 
 		if exists {
-			return 0, errors.New("cannot create an already existing aggregate")
+			return errors.New("cannot create an already existing aggregate")
 		}
 
 		finalStatus := pb.TaskStatus_TASK_STATUS_TODO
@@ -55,37 +50,31 @@ func NewCreateTaskCommandHandler(as hwes.AggregateStore) CreateTaskCommandHandle
 			finalStatus = *status
 		}
 
-		if err := a.CreateTask(ctx, name, patientID, finalStatus); err != nil {
-			return 0, err
+		if err := a.CreateTask(ctx, name, finalStatus); err != nil {
+			return err
 		}
 
 		if description != nil {
 			if err := a.UpdateDescription(ctx, *description); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
 		if dueAt != nil {
 			if err := a.UpdateDueAt(ctx, dueAt.AsTime()); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
 		if public != nil && *public {
 			if err := a.UpdateTaskPublic(ctx, *public); err != nil {
-				return 0, err
-			}
-		}
-
-		if assignedUserID.Valid {
-			if err := a.AssignTask(ctx, assignedUserID.UUID); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
 		for _, subtask := range subtasks {
 			if err := a.CreateSubtask(ctx, uuid.New(), subtask.Name, subtask.GetDone()); err != nil {
-				return 0, err
+				return err
 			}
 		}
 

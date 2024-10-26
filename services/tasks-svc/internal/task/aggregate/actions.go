@@ -11,11 +11,11 @@ import (
 	"github.com/google/uuid"
 )
 
-func (a *TaskAggregate) CreateTask(ctx context.Context, name string, patientID uuid.UUID, status pb.TaskStatus) error {
+func (a *TaskAggregate) CreateTask(ctx context.Context, name string, status pb.TaskStatus) error {
 	// The "Task" entity is our main entity in this aggregate.
 	// Therefore, we are using the same ID
 	id := a.GetID()
-	event, err := taskEventsV1.NewTaskCreatedEvent(ctx, a, id, name, patientID, status)
+	event, err := taskEventsV1.NewTaskCreatedEvent(ctx, a, id, name, status)
 	if err != nil {
 		return err
 	}
@@ -48,30 +48,6 @@ func (a *TaskAggregate) UpdateStatus(ctx context.Context, status pb.TaskStatus) 
 
 func (a *TaskAggregate) UpdateDueAt(ctx context.Context, dueAt time.Time) error {
 	event, err := taskEventsV1.NewTaskDueAtUpdatedEvent(ctx, a, dueAt)
-	if err != nil {
-		return err
-	}
-	return a.Apply(event)
-}
-
-func (a *TaskAggregate) AssignTask(ctx context.Context, userID uuid.UUID) error {
-	event, err := taskEventsV1.NewTaskAssignedEvent(ctx, a, userID)
-	if err != nil {
-		return err
-	}
-	return a.Apply(event)
-}
-
-func (a *TaskAggregate) SelfAssignTask(ctx context.Context, userID uuid.UUID) error {
-	event, err := taskEventsV1.NewTaskSelfAssignedEvent(ctx, a, userID)
-	if err != nil {
-		return err
-	}
-	return a.Apply(event)
-}
-
-func (a *TaskAggregate) UnassignTask(ctx context.Context, userID uuid.UUID) error {
-	event, err := taskEventsV1.NewTaskUnassignedEvent(ctx, a, userID)
 	if err != nil {
 		return err
 	}

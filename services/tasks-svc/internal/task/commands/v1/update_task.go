@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"common"
 	"context"
 	pb "gen/services/tasks_svc/v1"
 	"hwes"
@@ -20,7 +19,7 @@ type UpdateTaskCommandHandler func(
 	status *pb.TaskStatus,
 	public *bool,
 	dueAt *timestamppb.Timestamp,
-) (common.ConsistencyToken, error)
+) error
 
 func NewUpdateTaskCommandHandler(as hwes.AggregateStore) UpdateTaskCommandHandler {
 	return func(
@@ -31,39 +30,39 @@ func NewUpdateTaskCommandHandler(as hwes.AggregateStore) UpdateTaskCommandHandle
 		status *pb.TaskStatus,
 		public *bool,
 		dueAt *timestamppb.Timestamp,
-	) (common.ConsistencyToken, error) {
+	) error {
 		a, err := aggregate.LoadTaskAggregate(ctx, as, taskID)
 		if err != nil {
-			return 0, err
+			return err
 		}
 
 		if name != nil {
 			if err := a.UpdateName(ctx, *name); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
 		if description != nil {
 			if err := a.UpdateDescription(ctx, *description); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
 		if status != nil {
 			if err := a.UpdateStatus(ctx, *status); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
 		if public != nil && a.Task.Public != *public {
 			if err := a.UpdateTaskPublic(ctx, *public); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
 		if dueAt != nil {
 			if err := a.UpdateDueAt(ctx, dueAt.AsTime()); err != nil {
-				return 0, err
+				return err
 			}
 		}
 
