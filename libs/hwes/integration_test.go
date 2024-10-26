@@ -131,7 +131,7 @@ func TestIntegration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if _, err := aggregateStore.Save(ctx, userAggregate); err != nil {
+	if err := aggregateStore.Save(ctx, userAggregate); err != nil {
 		t.Fatal(err)
 	}
 
