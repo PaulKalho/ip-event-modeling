@@ -10,7 +10,7 @@ SET name = coalesce(sqlc.narg('name'), name),
 	status = coalesce(sqlc.narg('status'), status),
 	public = coalesce(sqlc.narg('public'), public),
 	created_by = coalesce(sqlc.narg('created_by'), created_by),
-	due_at = coalesce(sqlc.narg('due_at'), due_at),
+	due_at = coalesce(sqlc.narg('due_at'), due_at)
 WHERE id = $1;
 
 -- name: CreateSubtask :exec
@@ -29,6 +29,7 @@ DELETE FROM subtasks WHERE id = @id;
 
 -- name: RemoveTaskDueAt :exec
 UPDATE tasks
+SET due_at = NULL
 WHERE id = @id;
 
 -- name: DeleteTask :exec
