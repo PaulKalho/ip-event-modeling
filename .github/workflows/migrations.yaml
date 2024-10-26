@@ -10,8 +10,6 @@ permissions:
 env:
   # renovate: datasource=github-releases depName=golang-migrate/migrate
   MIGRATE_VERSION: '4.18.1'
-  # renovate: datasource=github-releases depName=superfly/flyctl versioning=semver
-  FLY_CLI_VERSION: '0.3.24'
   # renovate: datasource=github-releases depName=sqlc-dev/sqlc
   SQLC_VERSION: '1.27.0'
 
@@ -81,8 +79,6 @@ jobs:
 
     env:
       svc: ${{ matrix.service }}
-      FLY_DB_APP: ${{ secrets.STAGING_DB_FLY_DB_APP }}
-      REMOTE_DB: ${{ vars.STAGING_DB_REMOTE_DB_PREFIX }}${{ matrix.service }}
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       POSTGRES_USER: postgres
@@ -107,12 +103,6 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - name: Setup flyctl
-        uses: superfly/flyctl-actions/setup-flyctl@master
-        with:
-          version: ${{ env.FLY_CLI_VERSION }}
-      # ubuntu-22.04 ships with psql 14.x,
-      # whose pg_dump is incompatible with our postgres server (15.x)
       - name: Setup postgres client
         run: |
           sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
@@ -131,40 +121,7 @@ jobs:
         run: wget -qO- https://downloads.sqlc.dev/sqlc_${{ env.SQLC_VERSION }}_linux_amd64.tar.gz | sudo tar xvz -C /usr/bin
       - name: Clone Repo
         uses: actions/checkout@v4
-      - name: Open tunnel to staging db
-        run: |
-          flyctl proxy 5431:5432 -a $FLY_DB_APP &
-          count=0
-          max_attempts=10
 
-          until pg_isready -h localhost -p 5431; do
-            if [ $count -ge $max_attempts ]; then
-              echo "PostgreSQL is not ready after $max_attempts attempts. Exiting..."
-              exit 1
-            fi
-
-            echo "Waiting for PostgreSQL to be ready... (Attempt $((count+1))/$max_attempts)"
-            sleep 3
-
-            count=$((count+1))
-          done
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: Pull staging data
-        run: |
-          # service-name -> service_name
-          REMOTE_DB=$(echo "$REMOTE_DB" | sed "s/-/_/g")
-          # Build URIs
-          REMOTE=postgres://$STAGING_DB_USER:$STAGING_DB_PASS@localhost:5431/$REMOTE_DB
-          LOCAL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB
-          # Remote -> SQL -> Local
-          /usr/lib/postgresql/15/bin/pg_dump -C -c --if-exists --no-comments -O -x $REMOTE -f dump.sql
-          /usr/lib/postgresql/15/bin/psql -q $LOCAL -f dump.sql
-          # Use newly created database from now on
-          echo "POSTGRES_DB=$REMOTE_DB" >> "$GITHUB_ENV"
-        env:
-          STAGING_DB_USER: ${{ secrets.STAGING_DB_USER }}
-          STAGING_DB_PASS: ${{ secrets.STAGING_DB_PASS }}
       - name: Collect current version
         id: collect-version
         run: |

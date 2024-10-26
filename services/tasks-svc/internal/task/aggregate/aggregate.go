@@ -22,10 +22,9 @@ type TaskAggregate struct {
 
 func NewTaskAggregate(id uuid.UUID) *TaskAggregate {
 	aggregate := &TaskAggregate{Task: &models.Task{
-		ID:           id,
-		CreatedAt:    time.Now().UTC(),
-		AssignedUser: uuid.NullUUID{},
-		Subtasks:     make(map[uuid.UUID]models.Subtask, 0),
+		ID:        id,
+		CreatedAt: time.Now().UTC(),
+		Subtasks:  make(map[uuid.UUID]models.Subtask, 0),
 	}}
 	aggregate.AggregateBase = hwes.NewAggregateBase(TaskAggregateType, id)
 	aggregate.initEventListeners()
@@ -47,9 +46,6 @@ func (a *TaskAggregate) initEventListeners() {
 		RegisterEventListener(taskEventsV1.TaskNameUpdated, a.onTaskNameUpdated).
 		RegisterEventListener(taskEventsV1.TaskDescriptionUpdated, a.onTaskDescriptionUpdated).
 		RegisterEventListener(taskEventsV1.TaskDueAtUpdated, a.onTaskDueAtUpdated).
-		RegisterEventListener(taskEventsV1.TaskAssigned, a.onTaskAssigned).
-		RegisterEventListener(taskEventsV1.TaskSelfAssigned, a.onTaskAssigned).
-		RegisterEventListener(taskEventsV1.TaskUnassigned, a.onTaskUnassigned).
 		RegisterEventListener(taskEventsV1.TaskPublished, a.onTaskPublished).
 		RegisterEventListener(taskEventsV1.TaskUnpublished, a.onTaskUnpublished).
 		RegisterEventListener(taskEventsV1.SubtaskCreated, a.onSubtaskCreated).
@@ -70,11 +66,6 @@ func (a *TaskAggregate) onTaskCreated(evt hwes.Event) error {
 		return err
 	}
 
-	patientID, err := uuid.Parse(payload.PatientID)
-	if err != nil {
-		return err
-	}
-
 	value, found := pb.TaskStatus_value[payload.Status]
 	if !found {
 		return fmt.Errorf("invalid taskStatus: %s", payload.Status)
@@ -82,7 +73,6 @@ func (a *TaskAggregate) onTaskCreated(evt hwes.Event) error {
 	status := (pb.TaskStatus)(value)
 
 	a.Task.Name = payload.Name
-	a.Task.PatientID = patientID
 	a.Task.Status = status
 	a.Task.CreatedAt = evt.Timestamp
 
@@ -135,45 +125,6 @@ func (a *TaskAggregate) onTaskDueAtUpdated(evt hwes.Event) error {
 	}
 
 	a.Task.DueAt = &payload.DueAt
-
-	return nil
-}
-
-func (a *TaskAggregate) onTaskAssigned(evt hwes.Event) error {
-	var userIDStr string
-
-	switch evt.EventType {
-	case taskEventsV1.TaskAssigned:
-		var payload taskEventsV1.TaskAssignedEvent
-		if err := evt.GetJsonData(&payload); err != nil {
-			return err
-		}
-		userIDStr = payload.UserID
-	case taskEventsV1.TaskSelfAssigned:
-		var payload taskEventsV1.TaskSelfAssignedEvent
-		if err := evt.GetJsonData(&payload); err != nil {
-			return err
-		}
-		userIDStr = payload.UserID
-	}
-
-	userID, err := uuid.Parse(userIDStr)
-	if err != nil {
-		return err
-	}
-
-	a.Task.AssignedUser = uuid.NullUUID{UUID: userID, Valid: true}
-
-	return nil
-}
-
-func (a *TaskAggregate) onTaskUnassigned(evt hwes.Event) error {
-	var payload taskEventsV1.TaskUnassignedEvent
-	if err := evt.GetJsonData(&payload); err != nil {
-		return err
-	}
-
-	a.Task.AssignedUser = uuid.NullUUID{UUID: uuid.Nil, Valid: false}
 
 	return nil
 }

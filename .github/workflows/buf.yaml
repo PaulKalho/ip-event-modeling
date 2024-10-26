@@ -47,15 +47,6 @@ jobs:
       - name: Break if generated go modules are not checked in
         # exits with 1 if there were differences, and 0 if there were none
         run: git diff --quiet gen
-      - name: Upload docs
-        if: success() && github.ref == 'refs/heads/main'
-        uses: cloudflare/pages-action@1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'hw-proto-docs'
-          directory: 'proto_docs'
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
   breakage:
     runs-on: ubuntu-22.04
     steps:

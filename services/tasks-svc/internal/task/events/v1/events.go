@@ -14,9 +14,6 @@ const (
 	TaskNameUpdated        = "TASK_NAME_UPDATED_v1"
 	TaskDescriptionUpdated = "TASK_DESCRIPTION_UPDATED_v1"
 	TaskDueAtUpdated       = "TASK_DUE_AT_UPDATED_v1"
-	TaskAssigned           = "TASK_ASSIGNED_v1"
-	TaskSelfAssigned       = "TASK_SELF_ASSIGNED_v1"
-	TaskUnassigned         = "TASK_UNASSIGNED_v1"
 	TaskPublished          = "TASK_PUBLISHED_v1"
 	TaskUnpublished        = "TASK_UNPUBLISHED_v1"
 	SubtaskCreated         = "TASK_SUBTASK_CREATED_v1"
@@ -32,7 +29,6 @@ const (
 type TaskCreatedEvent struct {
 	ID        string    `json:"id"`
 	Name      string    `json:"name"`
-	PatientID string    `json:"patient_id"`
 	Status    string    `json:"status"`
 	CreatedAt time.Time `json:"created_at"`
 }
@@ -47,18 +43,6 @@ type TaskDescriptionUpdatedEvent struct {
 
 type TaskDueAtUpdatedEvent struct {
 	DueAt time.Time `json:"due_at"`
-}
-
-type TaskAssignedEvent struct {
-	UserID string `json:"user_id"`
-}
-
-type TaskSelfAssignedEvent struct {
-	UserID string `json:"user_id"`
-}
-
-type TaskUnassignedEvent struct {
-	UserID string `json:"user_id"`
 }
 
 type SubtaskCreatedEvent struct {
@@ -93,13 +77,11 @@ func NewTaskCreatedEvent(
 	a hwes.Aggregate,
 	id uuid.UUID,
 	name string,
-	patientID uuid.UUID,
 	status pb.TaskStatus,
 ) (hwes.Event, error) {
 	payload := TaskCreatedEvent{
 		ID:        id.String(),
 		Name:      name,
-		PatientID: patientID.String(),
 		Status:    status.String(),
 		CreatedAt: time.Now().UTC(),
 	}
@@ -132,27 +114,6 @@ func NewTaskDueAtUpdatedEvent(ctx context.Context, a hwes.Aggregate, dueAt time.
 		DueAt: dueAt,
 	}
 	return hwes.NewEvent(a, TaskDueAtUpdated, hwes.WithContext(ctx), hwes.WithData(payload))
-}
-
-func NewTaskAssignedEvent(ctx context.Context, a hwes.Aggregate, userID uuid.UUID) (hwes.Event, error) {
-	payload := TaskAssignedEvent{
-		UserID: userID.String(),
-	}
-	return hwes.NewEvent(a, TaskAssigned, hwes.WithContext(ctx), hwes.WithData(payload))
-}
-
-func NewTaskSelfAssignedEvent(ctx context.Context, a hwes.Aggregate, userID uuid.UUID) (hwes.Event, error) {
-	payload := TaskSelfAssignedEvent{
-		UserID: userID.String(),
-	}
-	return hwes.NewEvent(a, TaskSelfAssigned, hwes.WithContext(ctx), hwes.WithData(payload))
-}
-
-func NewTaskUnassignedEvent(ctx context.Context, a hwes.Aggregate, userID uuid.UUID) (hwes.Event, error) {
-	payload := TaskUnassignedEvent{
-		UserID: userID.String(),
-	}
-	return hwes.NewEvent(a, TaskUnassigned, hwes.WithContext(ctx), hwes.WithData(payload))
 }
 
 func NewTaskPublishedEvent(ctx context.Context, a hwes.Aggregate) (hwes.Event, error) {

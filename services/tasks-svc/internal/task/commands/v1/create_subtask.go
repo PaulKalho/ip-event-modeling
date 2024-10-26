@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"common"
 	"context"
 	"hwes"
 
@@ -16,7 +15,7 @@ type CreateSubtaskCommandHandler func(
 	subtaskID uuid.UUID,
 	name string,
 	done bool,
-) (common.ConsistencyToken, error)
+) error
 
 func NewCreateSubtaskCommandHandler(as hwes.AggregateStore) CreateSubtaskCommandHandler {
 	return func(
@@ -25,14 +24,14 @@ func NewCreateSubtaskCommandHandler(as hwes.AggregateStore) CreateSubtaskCommand
 		subtaskID uuid.UUID,
 		name string,
 		done bool,
-	) (common.ConsistencyToken, error) {
+	) error {
 		a, err := aggregate.LoadTaskAggregate(ctx, as, taskID)
 		if err != nil {
-			return 0, err
+			return err
 		}
 
 		if err := a.CreateSubtask(ctx, subtaskID, name, done); err != nil {
-			return 0, err
+			return err
 		}
 
 		return as.Save(ctx, a)

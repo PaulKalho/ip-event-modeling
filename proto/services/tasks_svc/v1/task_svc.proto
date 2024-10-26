@@ -4,7 +4,6 @@ package services.tasks_svc.v1;
 
 import "services/tasks_svc/v1/types.proto";
 import "google/protobuf/timestamp.proto";
-import "libs/common/v1/conflict.proto";
 
 option go_package = "gen/services/tasks-svc/v1";
 
@@ -16,11 +15,9 @@ option go_package = "gen/services/tasks-svc/v1";
 message CreateTaskRequest {
   string name = 1; // @gotags: validate:"required"
   optional string description = 2;
-  string patient_id = 3; // @gotags: validate:"uuid4"
   optional bool public = 4;
   google.protobuf.Timestamp due_at = 5;
   optional TaskStatus initial_status = 6;
-  optional string assigned_user_id = 7; // @gotags: validate:"omitempty,uuid4"
   repeated SubTask subtasks = 8; // @gotags: validate:"dive"
 
   message SubTask {
@@ -31,7 +28,6 @@ message CreateTaskRequest {
 
 message CreateTaskResponse {
   string id = 1;
-  string consistency = 2;
 }
 
 //
@@ -45,13 +41,9 @@ message UpdateTaskRequest {
   optional google.protobuf.Timestamp due_at = 4;
   optional TaskStatus status = 5;
   optional bool public = 6;
-  optional string consistency = 7; // no conflict detection, if not provided
 }
 
-message UpdateTaskResponse {
-  optional libs.common.v1.Conflict conflict = 1;
-  string consistency = 2;
-}
+message UpdateTaskResponse {}
 
 //
 // GetTask
@@ -65,166 +57,18 @@ message GetTaskResponse {
   string id = 1;
   string name = 2;
   string description = 3;
-  optional string assigned_user_id = 4;
   repeated SubTask subtasks = 5;
   TaskStatus status = 6;
   google.protobuf.Timestamp created_at = 7;
   bool public = 8;
   optional google.protobuf.Timestamp due_at = 9;
   string created_by = 10;
-  Patient patient = 11;
-  string consistency = 12;
-
-  message Patient {
-    string id = 1;
-    string human_readable_identifier = 2;
-    string consistency = 3;
-  }
 
   message SubTask {
     string id = 1;
     string name = 2;
     bool done = 3;
-    string created_by = 4;
   }
-}
-
-//
-// GetTasksByPatients
-//
-
-message GetTasksByPatientRequest {
-  string patient_id = 1;
-}
-
-message GetTasksByPatientResponse {
-  repeated Task tasks = 1;
-
-  message Task {
-    string id = 1;
-    string name = 2;
-    string description = 3;
-    TaskStatus status = 4;
-    optional string assigned_user_id = 5;
-    string patient_id = 6;
-    bool public = 7;
-    optional google.protobuf.Timestamp due_at = 8;
-    string created_by = 9;
-    repeated SubTask subtasks = 10;
-    google.protobuf.Timestamp created_at = 11;
-    string consistency = 12;
-
-    message SubTask {
-      string id = 1;
-      string name = 2;
-      bool done = 3;
-      string created_by = 4;
-    }
-  }
-}
-
-//
-// GetTasksByPatientSortedByStatus
-//
-
-message GetTasksByPatientSortedByStatusRequest {
-  string patient_id = 1; // @gotags: validate:"uuid4"
-}
-
-message GetTasksByPatientSortedByStatusResponse {
-  repeated Task todo = 1;
-  repeated Task in_progress = 2;
-  repeated Task done = 3;
-
-  message Task {
-    string id = 1;
-    string name = 2;
-    string description = 3;
-    optional string assigned_user_id = 4;
-    string patient_id = 5;
-    bool public = 6;
-    optional google.protobuf.Timestamp due_at = 7;
-    string created_by = 8;
-    repeated SubTask subtasks = 9;
-    google.protobuf.Timestamp created_at = 10;
-    string consistency = 11;
-
-    message SubTask {
-      string id = 1;
-      string name = 2;
-      bool done = 3;
-      string created_by = 4;
-    }
-  }
-}
-
-
-//
-// GetAssignedTasks
-//
-
-message GetAssignedTasksRequest {}
-
-message GetAssignedTasksResponse {
-  repeated Task tasks = 1;
-
-  message Task {
-    string id = 1;
-    string name = 2;
-    string description = 3;
-    TaskStatus status = 4;
-    string assigned_user_id = 5;
-    Patient patient = 6;
-    bool public = 7;
-    optional google.protobuf.Timestamp due_at = 8;
-    string created_by = 9;
-    repeated SubTask subtasks = 10;
-    google.protobuf.Timestamp created_at = 11;
-    string consistency = 12;
-
-    message Patient {
-      string id = 1;
-      string human_readable_identifier = 2;
-      string consistency = 3;
-    }
-
-    message SubTask {
-      string id = 1;
-      string name = 2;
-      bool done = 3;
-      string created_by = 4;
-    }
-  }
-}
-
-//
-// AssignTask
-//
-
-message AssignTaskRequest {
-  string task_id = 1; // @gotags: validate:"uuid4"
-  string user_id = 2; // @gotags: validate:"uuid4"
-  optional string consistency = 3; // no conflict detection, if not provided
-}
-
-message AssignTaskResponse {
-  optional libs.common.v1.Conflict conflict = 1;
-  string consistency = 2;
-}
-
-//
-// UnassignTask
-//
-
-message UnassignTaskRequest {
-  string task_id = 1; // @gotags: validate:"uuid4"
-  string user_id = 2; // @gotags: validate:"uuid4"
-  optional string consistency = 3; // no conflict detection, if not provided
-}
-
-message UnassignTaskResponse {
-  optional libs.common.v1.Conflict conflict = 1;
-  string consistency = 2;
 }
 
 //
@@ -243,7 +87,6 @@ message CreateSubtaskRequest {
 
 message CreateSubtaskResponse {
   string subtask_id = 1;
-  string task_consistency = 2;
 }
 
 //
@@ -254,7 +97,6 @@ message UpdateSubtaskRequest {
   string task_id = 1; // @gotags: validate:"uuid4"
   string subtask_id = 2; // @gotags: validate:"uuid4"
   Subtask subtask = 3; // @gotags: validate:"required"
-  optional string task_consistency = 4; // no conflict detection, if not provided
 
   message Subtask {
     optional string name = 1; // @gotags: validate:"omitnil,min=1"
@@ -262,10 +104,7 @@ message UpdateSubtaskRequest {
   }
 }
 
-message UpdateSubtaskResponse {
-  optional libs.common.v1.Conflict conflict = 1;
-  string task_consistency = 2;
-}
+message UpdateSubtaskResponse {}
 
 //
 // DeleteSubtask
@@ -286,9 +125,7 @@ message RemoveTaskDueDateRequest {
   string task_id = 1; // @gotags: validate:"uuid4"
 }
 
-message RemoveTaskDueDateResponse {
-  string consistency = 1;
-}
+message RemoveTaskDueDateResponse {}
 
 //
 // DeleteTask
@@ -309,11 +146,6 @@ service TaskService {
   rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {}
   rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse) {}
   rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
-  rpc GetTasksByPatient(GetTasksByPatientRequest) returns (GetTasksByPatientResponse) {}
-  rpc GetTasksByPatientSortedByStatus(GetTasksByPatientSortedByStatusRequest) returns (GetTasksByPatientSortedByStatusResponse) {}
-  rpc GetAssignedTasks(GetAssignedTasksRequest) returns (GetAssignedTasksResponse) {}
-  rpc AssignTask(AssignTaskRequest) returns (AssignTaskResponse) {}
-  rpc UnassignTask(UnassignTaskRequest) returns (UnassignTaskResponse) {}
   rpc CreateSubtask(CreateSubtaskRequest) returns (CreateSubtaskResponse) {}
   rpc UpdateSubtask(UpdateSubtaskRequest) returns (UpdateSubtaskResponse) {}
   rpc DeleteSubtask(DeleteSubtaskRequest) returns (DeleteSubtaskResponse) {}

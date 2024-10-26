@@ -29,41 +29,6 @@ export class TaskServiceClient {
                response: services_tasks_svc_v1_task_svc_pb.GetTaskResponse) => void
   ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.GetTaskResponse>;
 
-  getTasksByPatient(
-    request: services_tasks_svc_v1_task_svc_pb.GetTasksByPatientRequest,
-    metadata: grpcWeb.Metadata | undefined,
-    callback: (err: grpcWeb.RpcError,
-               response: services_tasks_svc_v1_task_svc_pb.GetTasksByPatientResponse) => void
-  ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.GetTasksByPatientResponse>;
-
-  getTasksByPatientSortedByStatus(
-    request: services_tasks_svc_v1_task_svc_pb.GetTasksByPatientSortedByStatusRequest,
-    metadata: grpcWeb.Metadata | undefined,
-    callback: (err: grpcWeb.RpcError,
-               response: services_tasks_svc_v1_task_svc_pb.GetTasksByPatientSortedByStatusResponse) => void
-  ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.GetTasksByPatientSortedByStatusResponse>;
-
-  getAssignedTasks(
-    request: services_tasks_svc_v1_task_svc_pb.GetAssignedTasksRequest,
-    metadata: grpcWeb.Metadata | undefined,
-    callback: (err: grpcWeb.RpcError,
-               response: services_tasks_svc_v1_task_svc_pb.GetAssignedTasksResponse) => void
-  ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.GetAssignedTasksResponse>;
-
-  assignTask(
-    request: services_tasks_svc_v1_task_svc_pb.AssignTaskRequest,
-    metadata: grpcWeb.Metadata | undefined,
-    callback: (err: grpcWeb.RpcError,
-               response: services_tasks_svc_v1_task_svc_pb.AssignTaskResponse) => void
-  ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.AssignTaskResponse>;
-
-  unassignTask(
-    request: services_tasks_svc_v1_task_svc_pb.UnassignTaskRequest,
-    metadata: grpcWeb.Metadata | undefined,
-    callback: (err: grpcWeb.RpcError,
-               response: services_tasks_svc_v1_task_svc_pb.UnassignTaskResponse) => void
-  ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.UnassignTaskResponse>;
-
   createSubtask(
     request: services_tasks_svc_v1_task_svc_pb.CreateSubtaskRequest,
     metadata: grpcWeb.Metadata | undefined,
@@ -120,31 +85,6 @@ export class TaskServicePromiseClient {
     request: services_tasks_svc_v1_task_svc_pb.GetTaskRequest,
     metadata?: grpcWeb.Metadata
   ): Promise<services_tasks_svc_v1_task_svc_pb.GetTaskResponse>;
-
-  getTasksByPatient(
-    request: services_tasks_svc_v1_task_svc_pb.GetTasksByPatientRequest,
-    metadata?: grpcWeb.Metadata
-  ): Promise<services_tasks_svc_v1_task_svc_pb.GetTasksByPatientResponse>;
-
-  getTasksByPatientSortedByStatus(
-    request: services_tasks_svc_v1_task_svc_pb.GetTasksByPatientSortedByStatusRequest,
-    metadata?: grpcWeb.Metadata
-  ): Promise<services_tasks_svc_v1_task_svc_pb.GetTasksByPatientSortedByStatusResponse>;
-
-  getAssignedTasks(
-    request: services_tasks_svc_v1_task_svc_pb.GetAssignedTasksRequest,
-    metadata?: grpcWeb.Metadata
-  ): Promise<services_tasks_svc_v1_task_svc_pb.GetAssignedTasksResponse>;
-
-  assignTask(
-    request: services_tasks_svc_v1_task_svc_pb.AssignTaskRequest,
-    metadata?: grpcWeb.Metadata
-  ): Promise<services_tasks_svc_v1_task_svc_pb.AssignTaskResponse>;
-
-  unassignTask(
-    request: services_tasks_svc_v1_task_svc_pb.UnassignTaskRequest,
-    metadata?: grpcWeb.Metadata
-  ): Promise<services_tasks_svc_v1_task_svc_pb.UnassignTaskResponse>;
 
   createSubtask(
     request: services_tasks_svc_v1_task_svc_pb.CreateSubtaskRequest,

@@ -1,7 +1,6 @@
 package test
 
 import (
-	"common"
 	"context"
 	"testing"
 
@@ -31,16 +30,16 @@ func (a *AggregateStore) Load(ctx context.Context, aggregate hwes.Aggregate) err
 	return nil
 }
 
-func (a *AggregateStore) Save(ctx context.Context, aggregate hwes.Aggregate) (common.ConsistencyToken, error) {
+func (a *AggregateStore) Save(ctx context.Context, aggregate hwes.Aggregate) error {
 	uncommittedEventsLen := len(aggregate.GetUncommittedEvents())
 	if uncommittedEventsLen == 0 {
-		return common.ConsistencyToken(aggregate.GetVersion()), nil
+		return nil
 	}
 
 	a.streams[aggregate.GetTypeID()] = append(a.streams[aggregate.GetTypeID()], aggregate.GetUncommittedEvents()...)
 
 	aggregate.ClearUncommittedEvents()
-	return common.ConsistencyToken(aggregate.GetVersion() + uint64(uncommittedEventsLen)), nil
+	return nil
 }
 
 func (a *AggregateStore) Exists(ctx context.Context, aggregate hwes.Aggregate) (bool, error) {
