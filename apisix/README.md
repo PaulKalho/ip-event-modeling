@@ -1,4 +1,0 @@
-# apisix
-
-> Our API gateway
-

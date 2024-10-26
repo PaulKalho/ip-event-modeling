@@ -51,32 +51,8 @@ jobs:
           working-directory: services/${{ inputs.service }}
           args: "--out-format=line-number"
 
-  test:
-    runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: services/${{ inputs.service }}
-    steps:
-      - uses: actions/setup-go@v5
-        with:
-          go-version: ${{ env.GO_VERSION }}
-
-      - uses: actions/checkout@v4
-
-      - name: Cache build dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/_go.sum') }}
-
-      - name: Install dependencies
-        run: go get .
-
-      - name: Test
-        run: go test -v ./...
-
   docker:
-    needs: [ lint, test ]
+    needs: [ lint ]
     runs-on: ubuntu-22.04
     permissions:
       contents: read

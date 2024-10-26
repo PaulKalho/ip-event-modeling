@@ -1,5 +1,0 @@
-DELETE FROM tasks
-WHERE assigned_user_id = '00000000-0000-0000-0000-000000000000';
-
-ALTER TABLE tasks
-	ALTER COLUMN assigned_user_id SET DEFAULT NULL;

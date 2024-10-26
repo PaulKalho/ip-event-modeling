@@ -15,68 +15,68 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'patient_svc.pb.dart' as $12;
+import 'patient_svc.pb.dart' as $1;
 
 export 'patient_svc.pb.dart';
 
 @$pb.GrpcServiceName('services.tasks_svc.v1.PatientService')
 class PatientServiceClient extends $grpc.Client {
-  static final _$createPatient = $grpc.ClientMethod<$12.CreatePatientRequest, $12.CreatePatientResponse>(
+  static final _$createPatient = $grpc.ClientMethod<$1.CreatePatientRequest, $1.CreatePatientResponse>(
       '/services.tasks_svc.v1.PatientService/CreatePatient',
-      ($12.CreatePatientRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.CreatePatientResponse.fromBuffer(value));
-  static final _$getPatient = $grpc.ClientMethod<$12.GetPatientRequest, $12.GetPatientResponse>(
+      ($1.CreatePatientRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.CreatePatientResponse.fromBuffer(value));
+  static final _$getPatient = $grpc.ClientMethod<$1.GetPatientRequest, $1.GetPatientResponse>(
       '/services.tasks_svc.v1.PatientService/GetPatient',
-      ($12.GetPatientRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.GetPatientResponse.fromBuffer(value));
-  static final _$getPatientByBed = $grpc.ClientMethod<$12.GetPatientByBedRequest, $12.GetPatientByBedResponse>(
+      ($1.GetPatientRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetPatientResponse.fromBuffer(value));
+  static final _$getPatientByBed = $grpc.ClientMethod<$1.GetPatientByBedRequest, $1.GetPatientByBedResponse>(
       '/services.tasks_svc.v1.PatientService/GetPatientByBed',
-      ($12.GetPatientByBedRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.GetPatientByBedResponse.fromBuffer(value));
-  static final _$getPatientsByWard = $grpc.ClientMethod<$12.GetPatientsByWardRequest, $12.GetPatientsByWardResponse>(
+      ($1.GetPatientByBedRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetPatientByBedResponse.fromBuffer(value));
+  static final _$getPatientsByWard = $grpc.ClientMethod<$1.GetPatientsByWardRequest, $1.GetPatientsByWardResponse>(
       '/services.tasks_svc.v1.PatientService/GetPatientsByWard',
-      ($12.GetPatientsByWardRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.GetPatientsByWardResponse.fromBuffer(value));
-  static final _$getPatientAssignmentByWard = $grpc.ClientMethod<$12.GetPatientAssignmentByWardRequest, $12.GetPatientAssignmentByWardResponse>(
+      ($1.GetPatientsByWardRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetPatientsByWardResponse.fromBuffer(value));
+  static final _$getPatientAssignmentByWard = $grpc.ClientMethod<$1.GetPatientAssignmentByWardRequest, $1.GetPatientAssignmentByWardResponse>(
       '/services.tasks_svc.v1.PatientService/GetPatientAssignmentByWard',
-      ($12.GetPatientAssignmentByWardRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.GetPatientAssignmentByWardResponse.fromBuffer(value));
-  static final _$getPatientDetails = $grpc.ClientMethod<$12.GetPatientDetailsRequest, $12.GetPatientDetailsResponse>(
+      ($1.GetPatientAssignmentByWardRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetPatientAssignmentByWardResponse.fromBuffer(value));
+  static final _$getPatientDetails = $grpc.ClientMethod<$1.GetPatientDetailsRequest, $1.GetPatientDetailsResponse>(
       '/services.tasks_svc.v1.PatientService/GetPatientDetails',
-      ($12.GetPatientDetailsRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.GetPatientDetailsResponse.fromBuffer(value));
-  static final _$getPatientList = $grpc.ClientMethod<$12.GetPatientListRequest, $12.GetPatientListResponse>(
+      ($1.GetPatientDetailsRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetPatientDetailsResponse.fromBuffer(value));
+  static final _$getPatientList = $grpc.ClientMethod<$1.GetPatientListRequest, $1.GetPatientListResponse>(
       '/services.tasks_svc.v1.PatientService/GetPatientList',
-      ($12.GetPatientListRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.GetPatientListResponse.fromBuffer(value));
-  static final _$getRecentPatients = $grpc.ClientMethod<$12.GetRecentPatientsRequest, $12.GetRecentPatientsResponse>(
+      ($1.GetPatientListRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetPatientListResponse.fromBuffer(value));
+  static final _$getRecentPatients = $grpc.ClientMethod<$1.GetRecentPatientsRequest, $1.GetRecentPatientsResponse>(
       '/services.tasks_svc.v1.PatientService/GetRecentPatients',
-      ($12.GetRecentPatientsRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.GetRecentPatientsResponse.fromBuffer(value));
-  static final _$updatePatient = $grpc.ClientMethod<$12.UpdatePatientRequest, $12.UpdatePatientResponse>(
+      ($1.GetRecentPatientsRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.GetRecentPatientsResponse.fromBuffer(value));
+  static final _$updatePatient = $grpc.ClientMethod<$1.UpdatePatientRequest, $1.UpdatePatientResponse>(
       '/services.tasks_svc.v1.PatientService/UpdatePatient',
-      ($12.UpdatePatientRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.UpdatePatientResponse.fromBuffer(value));
-  static final _$assignBed = $grpc.ClientMethod<$12.AssignBedRequest, $12.AssignBedResponse>(
+      ($1.UpdatePatientRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.UpdatePatientResponse.fromBuffer(value));
+  static final _$assignBed = $grpc.ClientMethod<$1.AssignBedRequest, $1.AssignBedResponse>(
       '/services.tasks_svc.v1.PatientService/AssignBed',
-      ($12.AssignBedRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.AssignBedResponse.fromBuffer(value));
-  static final _$unassignBed = $grpc.ClientMethod<$12.UnassignBedRequest, $12.UnassignBedResponse>(
+      ($1.AssignBedRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.AssignBedResponse.fromBuffer(value));
+  static final _$unassignBed = $grpc.ClientMethod<$1.UnassignBedRequest, $1.UnassignBedResponse>(
       '/services.tasks_svc.v1.PatientService/UnassignBed',
-      ($12.UnassignBedRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.UnassignBedResponse.fromBuffer(value));
-  static final _$dischargePatient = $grpc.ClientMethod<$12.DischargePatientRequest, $12.DischargePatientResponse>(
+      ($1.UnassignBedRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.UnassignBedResponse.fromBuffer(value));
+  static final _$dischargePatient = $grpc.ClientMethod<$1.DischargePatientRequest, $1.DischargePatientResponse>(
       '/services.tasks_svc.v1.PatientService/DischargePatient',
-      ($12.DischargePatientRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.DischargePatientResponse.fromBuffer(value));
-  static final _$readmitPatient = $grpc.ClientMethod<$12.ReadmitPatientRequest, $12.ReadmitPatientResponse>(
+      ($1.DischargePatientRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.DischargePatientResponse.fromBuffer(value));
+  static final _$readmitPatient = $grpc.ClientMethod<$1.ReadmitPatientRequest, $1.ReadmitPatientResponse>(
       '/services.tasks_svc.v1.PatientService/ReadmitPatient',
-      ($12.ReadmitPatientRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.ReadmitPatientResponse.fromBuffer(value));
-  static final _$deletePatient = $grpc.ClientMethod<$12.DeletePatientRequest, $12.DeletePatientResponse>(
+      ($1.ReadmitPatientRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.ReadmitPatientResponse.fromBuffer(value));
+  static final _$deletePatient = $grpc.ClientMethod<$1.DeletePatientRequest, $1.DeletePatientResponse>(
       '/services.tasks_svc.v1.PatientService/DeletePatient',
-      ($12.DeletePatientRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $12.DeletePatientResponse.fromBuffer(value));
+      ($1.DeletePatientRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.DeletePatientResponse.fromBuffer(value));
 
   PatientServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -84,59 +84,59 @@ class PatientServiceClient extends $grpc.Client {
       : super(channel, options: options,
         interceptors: interceptors);
 
-  $grpc.ResponseFuture<$12.CreatePatientResponse> createPatient($12.CreatePatientRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.CreatePatientResponse> createPatient($1.CreatePatientRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createPatient, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.GetPatientResponse> getPatient($12.GetPatientRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.GetPatientResponse> getPatient($1.GetPatientRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPatient, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.GetPatientByBedResponse> getPatientByBed($12.GetPatientByBedRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.GetPatientByBedResponse> getPatientByBed($1.GetPatientByBedRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPatientByBed, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.GetPatientsByWardResponse> getPatientsByWard($12.GetPatientsByWardRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.GetPatientsByWardResponse> getPatientsByWard($1.GetPatientsByWardRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPatientsByWard, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.GetPatientAssignmentByWardResponse> getPatientAssignmentByWard($12.GetPatientAssignmentByWardRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.GetPatientAssignmentByWardResponse> getPatientAssignmentByWard($1.GetPatientAssignmentByWardRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPatientAssignmentByWard, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.GetPatientDetailsResponse> getPatientDetails($12.GetPatientDetailsRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.GetPatientDetailsResponse> getPatientDetails($1.GetPatientDetailsRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPatientDetails, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.GetPatientListResponse> getPatientList($12.GetPatientListRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.GetPatientListResponse> getPatientList($1.GetPatientListRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPatientList, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.GetRecentPatientsResponse> getRecentPatients($12.GetRecentPatientsRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.GetRecentPatientsResponse> getRecentPatients($1.GetRecentPatientsRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getRecentPatients, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.UpdatePatientResponse> updatePatient($12.UpdatePatientRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.UpdatePatientResponse> updatePatient($1.UpdatePatientRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updatePatient, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.AssignBedResponse> assignBed($12.AssignBedRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.AssignBedResponse> assignBed($1.AssignBedRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$assignBed, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.UnassignBedResponse> unassignBed($12.UnassignBedRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.UnassignBedResponse> unassignBed($1.UnassignBedRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unassignBed, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.DischargePatientResponse> dischargePatient($12.DischargePatientRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.DischargePatientResponse> dischargePatient($1.DischargePatientRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$dischargePatient, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.ReadmitPatientResponse> readmitPatient($12.ReadmitPatientRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.ReadmitPatientResponse> readmitPatient($1.ReadmitPatientRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$readmitPatient, request, options: options);
   }
 
-  $grpc.ResponseFuture<$12.DeletePatientResponse> deletePatient($12.DeletePatientRequest request, {$grpc.CallOptions? options}) {
+  $grpc.ResponseFuture<$1.DeletePatientResponse> deletePatient($1.DeletePatientRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deletePatient, request, options: options);
   }
 }
@@ -146,174 +146,174 @@ abstract class PatientServiceBase extends $grpc.Service {
   $core.String get $name => 'services.tasks_svc.v1.PatientService';
 
   PatientServiceBase() {
-    $addMethod($grpc.ServiceMethod<$12.CreatePatientRequest, $12.CreatePatientResponse>(
+    $addMethod($grpc.ServiceMethod<$1.CreatePatientRequest, $1.CreatePatientResponse>(
         'CreatePatient',
         createPatient_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.CreatePatientRequest.fromBuffer(value),
-        ($12.CreatePatientResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.GetPatientRequest, $12.GetPatientResponse>(
+        ($core.List<$core.int> value) => $1.CreatePatientRequest.fromBuffer(value),
+        ($1.CreatePatientResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetPatientRequest, $1.GetPatientResponse>(
         'GetPatient',
         getPatient_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.GetPatientRequest.fromBuffer(value),
-        ($12.GetPatientResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.GetPatientByBedRequest, $12.GetPatientByBedResponse>(
+        ($core.List<$core.int> value) => $1.GetPatientRequest.fromBuffer(value),
+        ($1.GetPatientResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetPatientByBedRequest, $1.GetPatientByBedResponse>(
         'GetPatientByBed',
         getPatientByBed_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.GetPatientByBedRequest.fromBuffer(value),
-        ($12.GetPatientByBedResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.GetPatientsByWardRequest, $12.GetPatientsByWardResponse>(
+        ($core.List<$core.int> value) => $1.GetPatientByBedRequest.fromBuffer(value),
+        ($1.GetPatientByBedResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetPatientsByWardRequest, $1.GetPatientsByWardResponse>(
         'GetPatientsByWard',
         getPatientsByWard_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.GetPatientsByWardRequest.fromBuffer(value),
-        ($12.GetPatientsByWardResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.GetPatientAssignmentByWardRequest, $12.GetPatientAssignmentByWardResponse>(
+        ($core.List<$core.int> value) => $1.GetPatientsByWardRequest.fromBuffer(value),
+        ($1.GetPatientsByWardResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetPatientAssignmentByWardRequest, $1.GetPatientAssignmentByWardResponse>(
         'GetPatientAssignmentByWard',
         getPatientAssignmentByWard_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.GetPatientAssignmentByWardRequest.fromBuffer(value),
-        ($12.GetPatientAssignmentByWardResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.GetPatientDetailsRequest, $12.GetPatientDetailsResponse>(
+        ($core.List<$core.int> value) => $1.GetPatientAssignmentByWardRequest.fromBuffer(value),
+        ($1.GetPatientAssignmentByWardResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetPatientDetailsRequest, $1.GetPatientDetailsResponse>(
         'GetPatientDetails',
         getPatientDetails_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.GetPatientDetailsRequest.fromBuffer(value),
-        ($12.GetPatientDetailsResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.GetPatientListRequest, $12.GetPatientListResponse>(
+        ($core.List<$core.int> value) => $1.GetPatientDetailsRequest.fromBuffer(value),
+        ($1.GetPatientDetailsResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetPatientListRequest, $1.GetPatientListResponse>(
         'GetPatientList',
         getPatientList_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.GetPatientListRequest.fromBuffer(value),
-        ($12.GetPatientListResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.GetRecentPatientsRequest, $12.GetRecentPatientsResponse>(
+        ($core.List<$core.int> value) => $1.GetPatientListRequest.fromBuffer(value),
+        ($1.GetPatientListResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetRecentPatientsRequest, $1.GetRecentPatientsResponse>(
         'GetRecentPatients',
         getRecentPatients_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.GetRecentPatientsRequest.fromBuffer(value),
-        ($12.GetRecentPatientsResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.UpdatePatientRequest, $12.UpdatePatientResponse>(
+        ($core.List<$core.int> value) => $1.GetRecentPatientsRequest.fromBuffer(value),
+        ($1.GetRecentPatientsResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.UpdatePatientRequest, $1.UpdatePatientResponse>(
         'UpdatePatient',
         updatePatient_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.UpdatePatientRequest.fromBuffer(value),
-        ($12.UpdatePatientResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.AssignBedRequest, $12.AssignBedResponse>(
+        ($core.List<$core.int> value) => $1.UpdatePatientRequest.fromBuffer(value),
+        ($1.UpdatePatientResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.AssignBedRequest, $1.AssignBedResponse>(
         'AssignBed',
         assignBed_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.AssignBedRequest.fromBuffer(value),
-        ($12.AssignBedResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.UnassignBedRequest, $12.UnassignBedResponse>(
+        ($core.List<$core.int> value) => $1.AssignBedRequest.fromBuffer(value),
+        ($1.AssignBedResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.UnassignBedRequest, $1.UnassignBedResponse>(
         'UnassignBed',
         unassignBed_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.UnassignBedRequest.fromBuffer(value),
-        ($12.UnassignBedResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.DischargePatientRequest, $12.DischargePatientResponse>(
+        ($core.List<$core.int> value) => $1.UnassignBedRequest.fromBuffer(value),
+        ($1.UnassignBedResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.DischargePatientRequest, $1.DischargePatientResponse>(
         'DischargePatient',
         dischargePatient_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.DischargePatientRequest.fromBuffer(value),
-        ($12.DischargePatientResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.ReadmitPatientRequest, $12.ReadmitPatientResponse>(
+        ($core.List<$core.int> value) => $1.DischargePatientRequest.fromBuffer(value),
+        ($1.DischargePatientResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.ReadmitPatientRequest, $1.ReadmitPatientResponse>(
         'ReadmitPatient',
         readmitPatient_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.ReadmitPatientRequest.fromBuffer(value),
-        ($12.ReadmitPatientResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$12.DeletePatientRequest, $12.DeletePatientResponse>(
+        ($core.List<$core.int> value) => $1.ReadmitPatientRequest.fromBuffer(value),
+        ($1.ReadmitPatientResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.DeletePatientRequest, $1.DeletePatientResponse>(
         'DeletePatient',
         deletePatient_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $12.DeletePatientRequest.fromBuffer(value),
-        ($12.DeletePatientResponse value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $1.DeletePatientRequest.fromBuffer(value),
+        ($1.DeletePatientResponse value) => value.writeToBuffer()));
   }
 
-  $async.Future<$12.CreatePatientResponse> createPatient_Pre($grpc.ServiceCall call, $async.Future<$12.CreatePatientRequest> request) async {
+  $async.Future<$1.CreatePatientResponse> createPatient_Pre($grpc.ServiceCall call, $async.Future<$1.CreatePatientRequest> request) async {
     return createPatient(call, await request);
   }
 
-  $async.Future<$12.GetPatientResponse> getPatient_Pre($grpc.ServiceCall call, $async.Future<$12.GetPatientRequest> request) async {
+  $async.Future<$1.GetPatientResponse> getPatient_Pre($grpc.ServiceCall call, $async.Future<$1.GetPatientRequest> request) async {
     return getPatient(call, await request);
   }
 
-  $async.Future<$12.GetPatientByBedResponse> getPatientByBed_Pre($grpc.ServiceCall call, $async.Future<$12.GetPatientByBedRequest> request) async {
+  $async.Future<$1.GetPatientByBedResponse> getPatientByBed_Pre($grpc.ServiceCall call, $async.Future<$1.GetPatientByBedRequest> request) async {
     return getPatientByBed(call, await request);
   }
 
-  $async.Future<$12.GetPatientsByWardResponse> getPatientsByWard_Pre($grpc.ServiceCall call, $async.Future<$12.GetPatientsByWardRequest> request) async {
+  $async.Future<$1.GetPatientsByWardResponse> getPatientsByWard_Pre($grpc.ServiceCall call, $async.Future<$1.GetPatientsByWardRequest> request) async {
     return getPatientsByWard(call, await request);
   }
 
-  $async.Future<$12.GetPatientAssignmentByWardResponse> getPatientAssignmentByWard_Pre($grpc.ServiceCall call, $async.Future<$12.GetPatientAssignmentByWardRequest> request) async {
+  $async.Future<$1.GetPatientAssignmentByWardResponse> getPatientAssignmentByWard_Pre($grpc.ServiceCall call, $async.Future<$1.GetPatientAssignmentByWardRequest> request) async {
     return getPatientAssignmentByWard(call, await request);
   }
 
-  $async.Future<$12.GetPatientDetailsResponse> getPatientDetails_Pre($grpc.ServiceCall call, $async.Future<$12.GetPatientDetailsRequest> request) async {
+  $async.Future<$1.GetPatientDetailsResponse> getPatientDetails_Pre($grpc.ServiceCall call, $async.Future<$1.GetPatientDetailsRequest> request) async {
     return getPatientDetails(call, await request);
   }
 
-  $async.Future<$12.GetPatientListResponse> getPatientList_Pre($grpc.ServiceCall call, $async.Future<$12.GetPatientListRequest> request) async {
+  $async.Future<$1.GetPatientListResponse> getPatientList_Pre($grpc.ServiceCall call, $async.Future<$1.GetPatientListRequest> request) async {
     return getPatientList(call, await request);
   }
 
-  $async.Future<$12.GetRecentPatientsResponse> getRecentPatients_Pre($grpc.ServiceCall call, $async.Future<$12.GetRecentPatientsRequest> request) async {
+  $async.Future<$1.GetRecentPatientsResponse> getRecentPatients_Pre($grpc.ServiceCall call, $async.Future<$1.GetRecentPatientsRequest> request) async {
     return getRecentPatients(call, await request);
   }
 
-  $async.Future<$12.UpdatePatientResponse> updatePatient_Pre($grpc.ServiceCall call, $async.Future<$12.UpdatePatientRequest> request) async {
+  $async.Future<$1.UpdatePatientResponse> updatePatient_Pre($grpc.ServiceCall call, $async.Future<$1.UpdatePatientRequest> request) async {
     return updatePatient(call, await request);
   }
 
-  $async.Future<$12.AssignBedResponse> assignBed_Pre($grpc.ServiceCall call, $async.Future<$12.AssignBedRequest> request) async {
+  $async.Future<$1.AssignBedResponse> assignBed_Pre($grpc.ServiceCall call, $async.Future<$1.AssignBedRequest> request) async {
     return assignBed(call, await request);
   }
 
-  $async.Future<$12.UnassignBedResponse> unassignBed_Pre($grpc.ServiceCall call, $async.Future<$12.UnassignBedRequest> request) async {
+  $async.Future<$1.UnassignBedResponse> unassignBed_Pre($grpc.ServiceCall call, $async.Future<$1.UnassignBedRequest> request) async {
     return unassignBed(call, await request);
   }
 
-  $async.Future<$12.DischargePatientResponse> dischargePatient_Pre($grpc.ServiceCall call, $async.Future<$12.DischargePatientRequest> request) async {
+  $async.Future<$1.DischargePatientResponse> dischargePatient_Pre($grpc.ServiceCall call, $async.Future<$1.DischargePatientRequest> request) async {
     return dischargePatient(call, await request);
   }
 
-  $async.Future<$12.ReadmitPatientResponse> readmitPatient_Pre($grpc.ServiceCall call, $async.Future<$12.ReadmitPatientRequest> request) async {
+  $async.Future<$1.ReadmitPatientResponse> readmitPatient_Pre($grpc.ServiceCall call, $async.Future<$1.ReadmitPatientRequest> request) async {
     return readmitPatient(call, await request);
   }
 
-  $async.Future<$12.DeletePatientResponse> deletePatient_Pre($grpc.ServiceCall call, $async.Future<$12.DeletePatientRequest> request) async {
+  $async.Future<$1.DeletePatientResponse> deletePatient_Pre($grpc.ServiceCall call, $async.Future<$1.DeletePatientRequest> request) async {
     return deletePatient(call, await request);
   }
 
-  $async.Future<$12.CreatePatientResponse> createPatient($grpc.ServiceCall call, $12.CreatePatientRequest request);
-  $async.Future<$12.GetPatientResponse> getPatient($grpc.ServiceCall call, $12.GetPatientRequest request);
-  $async.Future<$12.GetPatientByBedResponse> getPatientByBed($grpc.ServiceCall call, $12.GetPatientByBedRequest request);
-  $async.Future<$12.GetPatientsByWardResponse> getPatientsByWard($grpc.ServiceCall call, $12.GetPatientsByWardRequest request);
-  $async.Future<$12.GetPatientAssignmentByWardResponse> getPatientAssignmentByWard($grpc.ServiceCall call, $12.GetPatientAssignmentByWardRequest request);
-  $async.Future<$12.GetPatientDetailsResponse> getPatientDetails($grpc.ServiceCall call, $12.GetPatientDetailsRequest request);
-  $async.Future<$12.GetPatientListResponse> getPatientList($grpc.ServiceCall call, $12.GetPatientListRequest request);
-  $async.Future<$12.GetRecentPatientsResponse> getRecentPatients($grpc.ServiceCall call, $12.GetRecentPatientsRequest request);
-  $async.Future<$12.UpdatePatientResponse> updatePatient($grpc.ServiceCall call, $12.UpdatePatientRequest request);
-  $async.Future<$12.AssignBedResponse> assignBed($grpc.ServiceCall call, $12.AssignBedRequest request);
-  $async.Future<$12.UnassignBedResponse> unassignBed($grpc.ServiceCall call, $12.UnassignBedRequest request);
-  $async.Future<$12.DischargePatientResponse> dischargePatient($grpc.ServiceCall call, $12.DischargePatientRequest request);
-  $async.Future<$12.ReadmitPatientResponse> readmitPatient($grpc.ServiceCall call, $12.ReadmitPatientRequest request);
-  $async.Future<$12.DeletePatientResponse> deletePatient($grpc.ServiceCall call, $12.DeletePatientRequest request);
+  $async.Future<$1.CreatePatientResponse> createPatient($grpc.ServiceCall call, $1.CreatePatientRequest request);
+  $async.Future<$1.GetPatientResponse> getPatient($grpc.ServiceCall call, $1.GetPatientRequest request);
+  $async.Future<$1.GetPatientByBedResponse> getPatientByBed($grpc.ServiceCall call, $1.GetPatientByBedRequest request);
+  $async.Future<$1.GetPatientsByWardResponse> getPatientsByWard($grpc.ServiceCall call, $1.GetPatientsByWardRequest request);
+  $async.Future<$1.GetPatientAssignmentByWardResponse> getPatientAssignmentByWard($grpc.ServiceCall call, $1.GetPatientAssignmentByWardRequest request);
+  $async.Future<$1.GetPatientDetailsResponse> getPatientDetails($grpc.ServiceCall call, $1.GetPatientDetailsRequest request);
+  $async.Future<$1.GetPatientListResponse> getPatientList($grpc.ServiceCall call, $1.GetPatientListRequest request);
+  $async.Future<$1.GetRecentPatientsResponse> getRecentPatients($grpc.ServiceCall call, $1.GetRecentPatientsRequest request);
+  $async.Future<$1.UpdatePatientResponse> updatePatient($grpc.ServiceCall call, $1.UpdatePatientRequest request);
+  $async.Future<$1.AssignBedResponse> assignBed($grpc.ServiceCall call, $1.AssignBedRequest request);
+  $async.Future<$1.UnassignBedResponse> unassignBed($grpc.ServiceCall call, $1.UnassignBedRequest request);
+  $async.Future<$1.DischargePatientResponse> dischargePatient($grpc.ServiceCall call, $1.DischargePatientRequest request);
+  $async.Future<$1.ReadmitPatientResponse> readmitPatient($grpc.ServiceCall call, $1.ReadmitPatientRequest request);
+  $async.Future<$1.DeletePatientResponse> deletePatient($grpc.ServiceCall call, $1.DeletePatientRequest request);
 }
