@@ -27,12 +27,6 @@ services:
     ports:
       - "2113:2113"
 
-  redis:
-    image: redis:6
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-
   jaeger:
     image: jaegertracing/all-in-one:1.60
     environment:
@@ -78,7 +72,6 @@ services:
       consul:
         condition: service_started
     environment:
-      SECRETSTORE_REDIS_HOST: "redis:6379"
       ZED_TOKEN: helpwave
       ZED_INSECURE: true
     command:

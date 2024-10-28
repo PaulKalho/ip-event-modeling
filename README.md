@@ -83,7 +83,7 @@ Following the steps above, you should now have a docker compose stack running an
 
 To see what compose actually starts, we recommend a look into the [docker-compose.yaml](https://github.com/helpwave/services/blob/main/dev/docker-compose.yaml), but here is the gist:
 
-* Dependencies (e.g., Redis, Postgres and EventStore)
+* Dependencies (e.g. Postgres and EventStore)
 * `services`
 * `devcontainer`
 
@@ -120,7 +120,6 @@ grpcurl --plaintext \
 |---------------|-------|-------------------------|
 | tasks-svc     | 3004  | gRPC                    |
 | postgres      | 5432  |                         |
-| redis         | 6379  |                         |
 | eventstore    | 2113  |                         |
 | jaeger (UI)   | 16686 | http                    |
 | jaeger (OTLP) | 4317  | grpc                    |
@@ -338,11 +337,6 @@ EVENTSTORE_CS=esdb://admin:changeit@localhost:2113?tls=false
 # For development purposes
 INSECURE_FAKE_TOKEN_ENABLE=true
 OAUTH_CLIENT_ID=425f8b8d-c786-4ff7-b2bf-e52f505fb588
-
-# Variables with the prefix "SECRETSTORE_" will be catched up by the current env secret store
-SECRETSTORE_REDIS_HOST=localhost
-SECRETSTORE_REDIS_USERNAME=
-SECRETSTORE_REDIS_PASSWORD=
 
 # Telemetry Related Configurations
 
