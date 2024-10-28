@@ -11,7 +11,6 @@ replace (
 
 require (
 	common v0.0.0
-	github.com/Mariscal6/testcontainers-spicedb-go v0.1.0
 	github.com/golang-migrate/migrate/v4 v4.18.1
 	github.com/rs/zerolog v1.33.0
 	github.com/testcontainers/testcontainers-go v0.33.0
@@ -50,7 +49,6 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.22.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0 // indirect
