@@ -55,7 +55,6 @@ func (s *TaskGrpcService) GetTask(ctx context.Context, req *pb.GetTaskRequest) (
 	if err != nil {
 		return nil, err
 	}
-	print(task)
 
 	subtasksRes := make([]*pb.GetTaskResponse_SubTask, 0, len(task.Subtasks))
 	for _, subtask := range task.Subtasks {
@@ -64,7 +63,6 @@ func (s *TaskGrpcService) GetTask(ctx context.Context, req *pb.GetTaskRequest) (
 			Name: subtask.Name,
 			Done: subtask.Done,
 		})
-
 	}
 
 	taskRes := &pb.GetTaskResponse{
@@ -91,8 +89,6 @@ func (s *TaskGrpcService) GetAllTasks(ctx context.Context, _ *pb.GetAllTasksRequ
 	if err != nil {
 		return nil, err
 	}
-
-	print(tasks)
 
 	tasksRes := make([]*pb.GetAllTasksResponse_Task, len(tasks))
 	for ix, task := range tasks {
