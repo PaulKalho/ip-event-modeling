@@ -6,8 +6,10 @@ import (
 	"hwes"
 	"hwutil"
 
-	"github.com/google/uuid"
 	"tasks-svc/internal/task/handlers"
+
+	"github.com/google/uuid"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type TaskGrpcService struct {
@@ -41,6 +43,48 @@ func (s *TaskGrpcService) CreateTask(ctx context.Context, req *pb.CreateTaskRequ
 	return &pb.CreateTaskResponse{
 		Id: taskID.String(),
 	}, nil
+}
+
+func (s *TaskGrpcService) GetTask(ctx context.Context, req *pb.GetTaskRequest) (*pb.GetTaskResponse, error) {
+	taskID, err := uuid.Parse(req.GetId())
+	if err != nil {
+		return nil, err
+	}
+
+	task, err := s.handlers.Queries.V1.GetTask(ctx, taskID)
+	if err != nil {
+		return nil, err
+	}
+	print(task)
+
+	subtasksRes := make([]*pb.GetTaskResponse_SubTask, 0, len(task.Subtasks))
+	for _, subtask := range task.Subtasks {
+		subtasksRes = append(subtasksRes, &pb.GetTaskResponse_SubTask{
+			Id:   subtask.ID.String(),
+			Name: subtask.Name,
+			Done: subtask.Done,
+		})
+
+	}
+
+	taskRes := &pb.GetTaskResponse{
+		Id:          task.ID.String(),
+		Name:        task.Name,
+		Description: task.Description,
+		Status:      task.Status,
+		CreatedAt:   timestamppb.New(task.CreatedAt),
+		Public:      task.Public,
+		DueAt:       nil, // may be set below
+		CreatedBy:   task.CreatedBy.String(),
+		Subtasks:    subtasksRes,
+	}
+
+	if task.DueAt != nil {
+		taskRes.DueAt = timestamppb.New(*task.DueAt)
+	}
+
+	return taskRes, nil
+
 }
 
 func (s *TaskGrpcService) UpdateTask(ctx context.Context, req *pb.UpdateTaskRequest) (*pb.UpdateTaskResponse, error) {
