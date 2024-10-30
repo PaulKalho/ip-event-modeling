@@ -12,8 +12,6 @@ common:
     # to gather information about Git.
     GOFLAGS: "-buildvcs=false"
 
-    SECRETSTORE_REDIS_HOST: "redis:6379"
-
     MODE: development
     LOG_LEVEL: debug
     POSTGRES_HOST: postgres
@@ -22,8 +20,6 @@ common:
     POSTGRES_PASSWORD: postgres
     EVENTSTORE_CS: esdb://admin:changeit@eventstore:2113?tls=false
     INSECURE_FAKE_TOKEN_ENABLE: true
-    REDIS_ADDR: redis:6379
-    INSECURE_REDIS_NO_TLS: true
 
     OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4317
     OTEL_EXPORTER_OTLP_INSECURE: true
