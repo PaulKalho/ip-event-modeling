@@ -124,12 +124,12 @@ const GetTaskResponse$json = {
     {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
-    {'1': 'subtasks', '3': 5, '4': 3, '5': 11, '6': '.services.tasks_svc.v1.GetTaskResponse.SubTask', '10': 'subtasks'},
-    {'1': 'status', '3': 6, '4': 1, '5': 14, '6': '.services.tasks_svc.v1.TaskStatus', '10': 'status'},
-    {'1': 'created_at', '3': 7, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
-    {'1': 'public', '3': 8, '4': 1, '5': 8, '10': 'public'},
-    {'1': 'due_at', '3': 9, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '9': 0, '10': 'dueAt', '17': true},
-    {'1': 'created_by', '3': 10, '4': 1, '5': 9, '10': 'createdBy'},
+    {'1': 'subtasks', '3': 4, '4': 3, '5': 11, '6': '.services.tasks_svc.v1.GetTaskResponse.SubTask', '10': 'subtasks'},
+    {'1': 'status', '3': 5, '4': 1, '5': 14, '6': '.services.tasks_svc.v1.TaskStatus', '10': 'status'},
+    {'1': 'created_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    {'1': 'public', '3': 7, '4': 1, '5': 8, '10': 'public'},
+    {'1': 'due_at', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '9': 0, '10': 'dueAt', '17': true},
+    {'1': 'created_by', '3': 9, '4': 1, '5': 9, '10': 'createdBy'},
   ],
   '3': [GetTaskResponse_SubTask$json],
   '8': [
@@ -150,14 +150,76 @@ const GetTaskResponse_SubTask$json = {
 /// Descriptor for `GetTaskResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getTaskResponseDescriptor = $convert.base64Decode(
     'Cg9HZXRUYXNrUmVzcG9uc2USDgoCaWQYASABKAlSAmlkEhIKBG5hbWUYAiABKAlSBG5hbWUSIA'
-    'oLZGVzY3JpcHRpb24YAyABKAlSC2Rlc2NyaXB0aW9uEkoKCHN1YnRhc2tzGAUgAygLMi4uc2Vy'
+    'oLZGVzY3JpcHRpb24YAyABKAlSC2Rlc2NyaXB0aW9uEkoKCHN1YnRhc2tzGAQgAygLMi4uc2Vy'
     'dmljZXMudGFza3Nfc3ZjLnYxLkdldFRhc2tSZXNwb25zZS5TdWJUYXNrUghzdWJ0YXNrcxI5Cg'
-    'ZzdGF0dXMYBiABKA4yIS5zZXJ2aWNlcy50YXNrc19zdmMudjEuVGFza1N0YXR1c1IGc3RhdHVz'
-    'EjkKCmNyZWF0ZWRfYXQYByABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdG'
-    'VkQXQSFgoGcHVibGljGAggASgIUgZwdWJsaWMSNgoGZHVlX2F0GAkgASgLMhouZ29vZ2xlLnBy'
-    'b3RvYnVmLlRpbWVzdGFtcEgAUgVkdWVBdIgBARIdCgpjcmVhdGVkX2J5GAogASgJUgljcmVhdG'
+    'ZzdGF0dXMYBSABKA4yIS5zZXJ2aWNlcy50YXNrc19zdmMudjEuVGFza1N0YXR1c1IGc3RhdHVz'
+    'EjkKCmNyZWF0ZWRfYXQYBiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdG'
+    'VkQXQSFgoGcHVibGljGAcgASgIUgZwdWJsaWMSNgoGZHVlX2F0GAggASgLMhouZ29vZ2xlLnBy'
+    'b3RvYnVmLlRpbWVzdGFtcEgAUgVkdWVBdIgBARIdCgpjcmVhdGVkX2J5GAkgASgJUgljcmVhdG'
     'VkQnkaQQoHU3ViVGFzaxIOCgJpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRISCgRk'
     'b25lGAMgASgIUgRkb25lQgkKB19kdWVfYXQ=');
+
+@$core.Deprecated('Use getAllTasksRequestDescriptor instead')
+const GetAllTasksRequest$json = {
+  '1': 'GetAllTasksRequest',
+};
+
+/// Descriptor for `GetAllTasksRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getAllTasksRequestDescriptor = $convert.base64Decode(
+    'ChJHZXRBbGxUYXNrc1JlcXVlc3Q=');
+
+@$core.Deprecated('Use getAllTasksResponseDescriptor instead')
+const GetAllTasksResponse$json = {
+  '1': 'GetAllTasksResponse',
+  '2': [
+    {'1': 'tasks', '3': 1, '4': 3, '5': 11, '6': '.services.tasks_svc.v1.GetAllTasksResponse.Task', '10': 'tasks'},
+  ],
+  '3': [GetAllTasksResponse_Task$json],
+};
+
+@$core.Deprecated('Use getAllTasksResponseDescriptor instead')
+const GetAllTasksResponse_Task$json = {
+  '1': 'Task',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'subtasks', '3': 4, '4': 3, '5': 11, '6': '.services.tasks_svc.v1.GetAllTasksResponse.Task.SubTask', '10': 'subtasks'},
+    {'1': 'status', '3': 5, '4': 1, '5': 14, '6': '.services.tasks_svc.v1.TaskStatus', '10': 'status'},
+    {'1': 'created_at', '3': 6, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'createdAt'},
+    {'1': 'public', '3': 7, '4': 1, '5': 8, '10': 'public'},
+    {'1': 'due_at', '3': 8, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '9': 0, '10': 'dueAt', '17': true},
+    {'1': 'created_by', '3': 9, '4': 1, '5': 9, '10': 'createdBy'},
+  ],
+  '3': [GetAllTasksResponse_Task_SubTask$json],
+  '8': [
+    {'1': '_due_at'},
+  ],
+};
+
+@$core.Deprecated('Use getAllTasksResponseDescriptor instead')
+const GetAllTasksResponse_Task_SubTask$json = {
+  '1': 'SubTask',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'done', '3': 3, '4': 1, '5': 8, '10': 'done'},
+  ],
+};
+
+/// Descriptor for `GetAllTasksResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getAllTasksResponseDescriptor = $convert.base64Decode(
+    'ChNHZXRBbGxUYXNrc1Jlc3BvbnNlEkUKBXRhc2tzGAEgAygLMi8uc2VydmljZXMudGFza3Nfc3'
+    'ZjLnYxLkdldEFsbFRhc2tzUmVzcG9uc2UuVGFza1IFdGFza3Ma1AMKBFRhc2sSDgoCaWQYASAB'
+    'KAlSAmlkEhIKBG5hbWUYAiABKAlSBG5hbWUSIAoLZGVzY3JpcHRpb24YAyABKAlSC2Rlc2NyaX'
+    'B0aW9uElMKCHN1YnRhc2tzGAQgAygLMjcuc2VydmljZXMudGFza3Nfc3ZjLnYxLkdldEFsbFRh'
+    'c2tzUmVzcG9uc2UuVGFzay5TdWJUYXNrUghzdWJ0YXNrcxI5CgZzdGF0dXMYBSABKA4yIS5zZX'
+    'J2aWNlcy50YXNrc19zdmMudjEuVGFza1N0YXR1c1IGc3RhdHVzEjkKCmNyZWF0ZWRfYXQYBiAB'
+    'KAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wUgljcmVhdGVkQXQSFgoGcHVibGljGAcgAS'
+    'gIUgZwdWJsaWMSNgoGZHVlX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcEgA'
+    'UgVkdWVBdIgBARIdCgpjcmVhdGVkX2J5GAkgASgJUgljcmVhdGVkQnkaQQoHU3ViVGFzaxIOCg'
+    'JpZBgBIAEoCVICaWQSEgoEbmFtZRgCIAEoCVIEbmFtZRISCgRkb25lGAMgASgIUgRkb25lQgkK'
+    'B19kdWVfYXQ=');
 
 @$core.Deprecated('Use createSubtaskRequestDescriptor instead')
 const CreateSubtaskRequest$json = {

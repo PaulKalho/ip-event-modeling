@@ -34,3 +34,12 @@ WHERE id = @id;
 
 -- name: DeleteTask :exec
 DELETE FROM tasks WHERE id = $1;
+
+-- name: GetAllTasks :many
+SELECT
+	sqlc.embed(tasks),
+	subtasks.id as subtask_id,
+	subtasks.name as subtasks_name,
+	subtasks.done as subtasks_done
+FROM tasks
+LEFT JOIN subtasks ON subtasks.task_id = tasks.id;

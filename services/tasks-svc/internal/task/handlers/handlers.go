@@ -34,7 +34,10 @@ func NewTaskHandlers(as hwes.AggregateStore) *Handlers {
 			},
 		},
 		Queries: &Queries{
-			V1: &queriesV1.TaskQueries{},
+			V1: &queriesV1.TaskQueries{
+				GetTask:                 queriesV1.NewGetTaskQueryHandler(as),
+				GetAllTasksWithSubtasks: queriesV1.NewGetAllTasksWithSubtasksQueryHandler(),
+			},
 		},
 	}
 }

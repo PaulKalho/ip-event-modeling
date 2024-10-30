@@ -29,6 +29,13 @@ export class TaskServiceClient {
                response: services_tasks_svc_v1_task_svc_pb.GetTaskResponse) => void
   ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.GetTaskResponse>;
 
+  getAllTasks(
+    request: services_tasks_svc_v1_task_svc_pb.GetAllTasksRequest,
+    metadata: grpcWeb.Metadata | undefined,
+    callback: (err: grpcWeb.RpcError,
+               response: services_tasks_svc_v1_task_svc_pb.GetAllTasksResponse) => void
+  ): grpcWeb.ClientReadableStream<services_tasks_svc_v1_task_svc_pb.GetAllTasksResponse>;
+
   createSubtask(
     request: services_tasks_svc_v1_task_svc_pb.CreateSubtaskRequest,
     metadata: grpcWeb.Metadata | undefined,
@@ -85,6 +92,11 @@ export class TaskServicePromiseClient {
     request: services_tasks_svc_v1_task_svc_pb.GetTaskRequest,
     metadata?: grpcWeb.Metadata
   ): Promise<services_tasks_svc_v1_task_svc_pb.GetTaskResponse>;
+
+  getAllTasks(
+    request: services_tasks_svc_v1_task_svc_pb.GetAllTasksRequest,
+    metadata?: grpcWeb.Metadata
+  ): Promise<services_tasks_svc_v1_task_svc_pb.GetAllTasksResponse>;
 
   createSubtask(
     request: services_tasks_svc_v1_task_svc_pb.CreateSubtaskRequest,

@@ -6,8 +6,10 @@ import (
 	"hwes"
 	"hwutil"
 
-	"github.com/google/uuid"
 	"tasks-svc/internal/task/handlers"
+
+	"github.com/google/uuid"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type TaskGrpcService struct {
@@ -40,6 +42,85 @@ func (s *TaskGrpcService) CreateTask(ctx context.Context, req *pb.CreateTaskRequ
 
 	return &pb.CreateTaskResponse{
 		Id: taskID.String(),
+	}, nil
+}
+
+func (s *TaskGrpcService) GetTask(ctx context.Context, req *pb.GetTaskRequest) (*pb.GetTaskResponse, error) {
+	taskID, err := uuid.Parse(req.GetId())
+	if err != nil {
+		return nil, err
+	}
+
+	task, err := s.handlers.Queries.V1.GetTask(ctx, taskID)
+	if err != nil {
+		return nil, err
+	}
+
+	subtasksRes := make([]*pb.GetTaskResponse_SubTask, 0, len(task.Subtasks))
+	for _, subtask := range task.Subtasks {
+		subtasksRes = append(subtasksRes, &pb.GetTaskResponse_SubTask{
+			Id:   subtask.ID.String(),
+			Name: subtask.Name,
+			Done: subtask.Done,
+		})
+	}
+
+	taskRes := &pb.GetTaskResponse{
+		Id:          task.ID.String(),
+		Name:        task.Name,
+		Description: task.Description,
+		Status:      task.Status,
+		CreatedAt:   timestamppb.New(task.CreatedAt),
+		Public:      task.Public,
+		DueAt:       nil, // may be set below
+		CreatedBy:   task.CreatedBy.String(),
+		Subtasks:    subtasksRes,
+	}
+
+	if task.DueAt != nil {
+		taskRes.DueAt = timestamppb.New(*task.DueAt)
+	}
+
+	return taskRes, nil
+}
+
+func (s *TaskGrpcService) GetAllTasks(ctx context.Context, _ *pb.GetAllTasksRequest) (*pb.GetAllTasksResponse, error) {
+	tasks, err := s.handlers.Queries.V1.GetAllTasksWithSubtasks(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	tasksRes := make([]*pb.GetAllTasksResponse_Task, len(tasks))
+	for ix, task := range tasks {
+		tasksRes[ix] = &pb.GetAllTasksResponse_Task{
+			Id:          task.ID.String(),
+			Name:        task.Name,
+			Description: task.Description,
+			Status:      task.Status,
+			Public:      task.Public,
+			CreatedAt:   timestamppb.New(task.CreatedAt),
+			CreatedBy:   task.CreatedBy.String(),
+			DueAt:       nil, // may be set below
+			Subtasks:    make([]*pb.GetAllTasksResponse_Task_SubTask, len(task.Subtasks)),
+		}
+
+		if task.DueAt != nil {
+			tasksRes[ix].DueAt = timestamppb.New(*task.DueAt)
+		}
+
+		subtasksIdx := 0
+		for _, subtask := range task.Subtasks {
+			tasksRes[ix].Subtasks[subtasksIdx] = &pb.GetAllTasksResponse_Task_SubTask{
+				Id:   subtask.ID.String(),
+				Name: subtask.Name,
+				Done: subtask.Done,
+			}
+			subtasksIdx++
+		}
+	}
+
+	return &pb.GetAllTasksResponse{
+		Tasks: tasksRes,
 	}, nil
 }
 

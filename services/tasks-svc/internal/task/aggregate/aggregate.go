@@ -21,11 +21,12 @@ type TaskAggregate struct {
 }
 
 func NewTaskAggregate(id uuid.UUID) *TaskAggregate {
-	aggregate := &TaskAggregate{Task: &models.Task{
-		ID:        id,
-		CreatedAt: time.Now().UTC(),
-		Subtasks:  make(map[uuid.UUID]models.Subtask, 0),
-	}}
+	aggregate := &TaskAggregate{
+		Task: &models.Task{
+			ID:        id,
+			CreatedAt: time.Now().UTC(),
+			Subtasks:  make(map[uuid.UUID]models.Subtask, 0),
+		}}
 	aggregate.AggregateBase = hwes.NewAggregateBase(TaskAggregateType, id)
 	aggregate.initEventListeners()
 	return aggregate
