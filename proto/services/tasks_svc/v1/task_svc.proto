@@ -57,12 +57,12 @@ message GetTaskResponse {
   string id = 1;
   string name = 2;
   string description = 3;
-  repeated SubTask subtasks = 5;
-  TaskStatus status = 6;
-  google.protobuf.Timestamp created_at = 7;
-  bool public = 8;
-  optional google.protobuf.Timestamp due_at = 9;
-  string created_by = 10;
+  repeated SubTask subtasks = 4;
+  TaskStatus status = 5;
+  google.protobuf.Timestamp created_at = 6;
+  bool public = 7;
+  optional google.protobuf.Timestamp due_at = 8;
+  string created_by = 9;
 
   message SubTask {
     string id = 1;
@@ -71,6 +71,33 @@ message GetTaskResponse {
   }
 }
 
+//
+// GetAllTasks
+//
+
+message GetAllTasksRequest {}
+
+message GetAllTasksResponse {
+  repeated Task tasks = 1;
+
+  message Task {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated SubTask subtasks = 4;
+    TaskStatus status = 5;
+    google.protobuf.Timestamp created_at = 6;
+    bool public = 7;
+    optional google.protobuf.Timestamp due_at = 8;
+    string created_by = 9;
+
+    message SubTask {
+      string id = 1;
+      string name = 2;
+      bool done = 3;
+    }
+  }
+}
 //
 // CreateSubtask
 //
@@ -146,6 +173,7 @@ service TaskService {
   rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {}
   rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse) {}
   rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
+  rpc GetAllTasks(GetAllTasksRequest) returns (GetAllTasksResponse) {}
   rpc CreateSubtask(CreateSubtaskRequest) returns (CreateSubtaskResponse) {}
   rpc UpdateSubtask(UpdateSubtaskRequest) returns (UpdateSubtaskResponse) {}
   rpc DeleteSubtask(DeleteSubtaskRequest) returns (DeleteSubtaskResponse) {}

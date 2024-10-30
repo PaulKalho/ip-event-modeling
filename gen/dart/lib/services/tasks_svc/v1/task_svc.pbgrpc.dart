@@ -33,6 +33,10 @@ class TaskServiceClient extends $grpc.Client {
       '/services.tasks_svc.v1.TaskService/GetTask',
       ($0.GetTaskRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.GetTaskResponse.fromBuffer(value));
+  static final _$getAllTasks = $grpc.ClientMethod<$0.GetAllTasksRequest, $0.GetAllTasksResponse>(
+      '/services.tasks_svc.v1.TaskService/GetAllTasks',
+      ($0.GetAllTasksRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.GetAllTasksResponse.fromBuffer(value));
   static final _$createSubtask = $grpc.ClientMethod<$0.CreateSubtaskRequest, $0.CreateSubtaskResponse>(
       '/services.tasks_svc.v1.TaskService/CreateSubtask',
       ($0.CreateSubtaskRequest value) => value.writeToBuffer(),
@@ -70,6 +74,10 @@ class TaskServiceClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.GetTaskResponse> getTask($0.GetTaskRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getTask, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetAllTasksResponse> getAllTasks($0.GetAllTasksRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getAllTasks, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateSubtaskResponse> createSubtask($0.CreateSubtaskRequest request, {$grpc.CallOptions? options}) {
@@ -119,6 +127,13 @@ abstract class TaskServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetTaskRequest.fromBuffer(value),
         ($0.GetTaskResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.GetAllTasksRequest, $0.GetAllTasksResponse>(
+        'GetAllTasks',
+        getAllTasks_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.GetAllTasksRequest.fromBuffer(value),
+        ($0.GetAllTasksResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateSubtaskRequest, $0.CreateSubtaskResponse>(
         'CreateSubtask',
         createSubtask_Pre,
@@ -168,6 +183,10 @@ abstract class TaskServiceBase extends $grpc.Service {
     return getTask(call, await request);
   }
 
+  $async.Future<$0.GetAllTasksResponse> getAllTasks_Pre($grpc.ServiceCall call, $async.Future<$0.GetAllTasksRequest> request) async {
+    return getAllTasks(call, await request);
+  }
+
   $async.Future<$0.CreateSubtaskResponse> createSubtask_Pre($grpc.ServiceCall call, $async.Future<$0.CreateSubtaskRequest> request) async {
     return createSubtask(call, await request);
   }
@@ -191,6 +210,7 @@ abstract class TaskServiceBase extends $grpc.Service {
   $async.Future<$0.CreateTaskResponse> createTask($grpc.ServiceCall call, $0.CreateTaskRequest request);
   $async.Future<$0.UpdateTaskResponse> updateTask($grpc.ServiceCall call, $0.UpdateTaskRequest request);
   $async.Future<$0.GetTaskResponse> getTask($grpc.ServiceCall call, $0.GetTaskRequest request);
+  $async.Future<$0.GetAllTasksResponse> getAllTasks($grpc.ServiceCall call, $0.GetAllTasksRequest request);
   $async.Future<$0.CreateSubtaskResponse> createSubtask($grpc.ServiceCall call, $0.CreateSubtaskRequest request);
   $async.Future<$0.UpdateSubtaskResponse> updateSubtask($grpc.ServiceCall call, $0.UpdateSubtaskRequest request);
   $async.Future<$0.DeleteSubtaskResponse> deleteSubtask($grpc.ServiceCall call, $0.DeleteSubtaskRequest request);

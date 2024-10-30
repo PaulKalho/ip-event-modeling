@@ -78,6 +78,55 @@ func (q *Queries) DeleteTask(ctx context.Context, id uuid.UUID) error {
 	return err
 }
 
+const getAllTasks = `-- name: GetAllTasks :many
+SELECT
+	tasks.id, tasks.name, tasks.description, tasks.status, tasks.public, tasks.created_by, tasks.due_at, tasks.created_at,
+	subtasks.id as subtask_id,
+	subtasks.name as subtasks_name,
+	subtasks.done as subtasks_done
+FROM tasks
+LEFT JOIN subtasks ON subtasks.task_id = tasks.id
+`
+
+type GetAllTasksRow struct {
+	Task         Task
+	SubtaskID    uuid.NullUUID
+	SubtasksName *string
+	SubtasksDone *bool
+}
+
+func (q *Queries) GetAllTasks(ctx context.Context) ([]GetAllTasksRow, error) {
+	rows, err := q.db.Query(ctx, getAllTasks)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetAllTasksRow{}
+	for rows.Next() {
+		var i GetAllTasksRow
+		if err := rows.Scan(
+			&i.Task.ID,
+			&i.Task.Name,
+			&i.Task.Description,
+			&i.Task.Status,
+			&i.Task.Public,
+			&i.Task.CreatedBy,
+			&i.Task.DueAt,
+			&i.Task.CreatedAt,
+			&i.SubtaskID,
+			&i.SubtasksName,
+			&i.SubtasksDone,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const removeTaskDueAt = `-- name: RemoveTaskDueAt :exec
 UPDATE tasks
 SET due_at = NULL

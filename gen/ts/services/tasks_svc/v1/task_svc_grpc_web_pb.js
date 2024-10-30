@@ -266,6 +266,67 @@ proto.services.tasks_svc.v1.TaskServicePromiseClient.prototype.getTask =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
+ *   !proto.services.tasks_svc.v1.GetAllTasksRequest,
+ *   !proto.services.tasks_svc.v1.GetAllTasksResponse>}
+ */
+const methodDescriptor_TaskService_GetAllTasks = new grpc.web.MethodDescriptor(
+  '/services.tasks_svc.v1.TaskService/GetAllTasks',
+  grpc.web.MethodType.UNARY,
+  proto.services.tasks_svc.v1.GetAllTasksRequest,
+  proto.services.tasks_svc.v1.GetAllTasksResponse,
+  /**
+   * @param {!proto.services.tasks_svc.v1.GetAllTasksRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.services.tasks_svc.v1.GetAllTasksResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.services.tasks_svc.v1.GetAllTasksRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.services.tasks_svc.v1.GetAllTasksResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.services.tasks_svc.v1.GetAllTasksResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.services.tasks_svc.v1.TaskServiceClient.prototype.getAllTasks =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/services.tasks_svc.v1.TaskService/GetAllTasks',
+      request,
+      metadata || {},
+      methodDescriptor_TaskService_GetAllTasks,
+      callback);
+};
+
+
+/**
+ * @param {!proto.services.tasks_svc.v1.GetAllTasksRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.services.tasks_svc.v1.GetAllTasksResponse>}
+ *     Promise that resolves to the response
+ */
+proto.services.tasks_svc.v1.TaskServicePromiseClient.prototype.getAllTasks =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/services.tasks_svc.v1.TaskService/GetAllTasks',
+      request,
+      metadata || {},
+      methodDescriptor_TaskService_GetAllTasks);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
  *   !proto.services.tasks_svc.v1.CreateSubtaskRequest,
  *   !proto.services.tasks_svc.v1.CreateSubtaskResponse>}
  */

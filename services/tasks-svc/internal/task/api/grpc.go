@@ -84,7 +84,48 @@ func (s *TaskGrpcService) GetTask(ctx context.Context, req *pb.GetTaskRequest) (
 	}
 
 	return taskRes, nil
+}
 
+func (s *TaskGrpcService) GetAllTasks(ctx context.Context, _ *pb.GetAllTasksRequest) (*pb.GetAllTasksResponse, error) {
+	tasks, err := s.handlers.Queries.V1.GetAllTasksWithSubtasks(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	print(tasks)
+
+	tasksRes := make([]*pb.GetAllTasksResponse_Task, len(tasks))
+	for ix, task := range tasks {
+		tasksRes[ix] = &pb.GetAllTasksResponse_Task{
+			Id:          task.ID.String(),
+			Name:        task.Name,
+			Description: task.Description,
+			Status:      task.Status,
+			Public:      task.Public,
+			CreatedAt:   timestamppb.New(task.CreatedAt),
+			CreatedBy:   task.CreatedBy.String(),
+			DueAt:       nil, // may be set below
+			Subtasks:    make([]*pb.GetAllTasksResponse_Task_SubTask, len(task.Subtasks)),
+		}
+
+		if task.DueAt != nil {
+			tasksRes[ix].DueAt = timestamppb.New(*task.DueAt)
+		}
+
+		subtasksIdx := 0
+		for _, subtask := range task.Subtasks {
+			tasksRes[ix].Subtasks[subtasksIdx] = &pb.GetAllTasksResponse_Task_SubTask{
+				Id:   subtask.ID.String(),
+				Name: subtask.Name,
+				Done: subtask.Done,
+			}
+			subtasksIdx++
+		}
+	}
+
+	return &pb.GetAllTasksResponse{
+		Tasks: tasksRes,
+	}, nil
 }
 
 func (s *TaskGrpcService) UpdateTask(ctx context.Context, req *pb.UpdateTaskRequest) (*pb.UpdateTaskResponse, error) {
