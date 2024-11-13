@@ -41,7 +41,7 @@ POSTGRES_USER="${POSTGRES_USER:-postgres}"
 POSTGRES_PASSWORD="${POSTGRES_PASSWORD:-postgres}"
 POSTGRES_HOST="${POSTGRES_HOST:-localhost}"
 POSTGRES_PORT="${POSTGRES_PORT:-5432}"
-POSTGRES_DB="${POSTGRES_DB:-postgres}"
+POSTGRES_DB="${POSTGRES_DB:-tasks-svc}"
 
 # prepare args for piping to migrate
 # by removing the first argument (the service)
