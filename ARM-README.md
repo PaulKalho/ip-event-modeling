@@ -12,6 +12,8 @@ docker compose up
 > it does not work on my system. Therefore I am currently creating the
 > tables manually
 
+Using pgAdmin4 or psql run [these commands](./services/tasks-svc/migrations/001_init.down.sql) to create the tables in the database `tasks-svc`.
+
 ### Using `migrate`/`migrate.sh` 
 
 Install `migrate` with Homebrew or [use other installation methods](https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md).
